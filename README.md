@@ -21,4 +21,4 @@ There will be also a sysadmin account in place, for use in situations where manu
 - Event calendar
 
 <b>Participants:</b><br />
--Turgut Alp Edis <br />-Doğukan Ertunga Kurnaz <br />-Cemhan Kaan Özaltan <br />-İdil Yılmaz <br /> Argun Muradov <br />
+-Turgut Alp Edis <br />-Doğukan Ertunga Kurnaz <br />-Cemhan Kaan Özaltan <br />-İdil Yılmaz <br />-Argun Muradov <br />
