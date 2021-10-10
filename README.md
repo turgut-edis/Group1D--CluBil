@@ -4,7 +4,7 @@
 
 <b>:pushpin: Project Name:</b> CluBil<br /> <br />
 <b>:clipboard: Project Description:</b> 
-BilClub, is a project to create a medium to establish efficiently communication between students and student clubs.
+CluBil, is a project to create a medium to establish efficiently communication between students and student clubs.
 
 <b>For Students:</b>
 Students, with pre-existing credentials, will be able to login their account as students and edit all of their profile details including an avatar and some description or contact information. Students will be able to join clubs and activities and have dashboards where they will be able to search and filter for the activity/club of their interest. They will also have an inbox-like page where they can see the private invitations ( e.g brainstorming sessions, teambuiding activities ) from the club.
