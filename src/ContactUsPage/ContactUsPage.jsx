@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { userService, authenticationService } from '@/_services';
+import { userService, authenticationService } from '../_services';
 
 class ContactUsPage extends React.Component {
     constructor(props) {

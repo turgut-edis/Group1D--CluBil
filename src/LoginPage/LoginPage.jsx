@@ -1,8 +1,8 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
-import { authenticationService } from '@/_services';
+import styled from 'styled-components';
+import { authenticationService } from '../_services';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -20,9 +20,9 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <Container>
                 Can't Log in? <br/>
-                <button onClick = {() => this.props.history.push('/public')}>Go to public events</button>
+                <Button onClick = {() => this.props.history.push('/public')}>Go to public events</Button>
                 <button onClick = {() => this.props.history.push('/contact')}>Contact Us</button>
                 <h2>CluBil Login</h2>
                 
@@ -73,9 +73,30 @@ class LoginPage extends React.Component {
                         </Form>
                     )}
                 />
-            </div>
+            </Container>
         )
     }
 }
+
+const Button = styled.button`
+  /* This renders the buttons above... Edit me! */
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+
+    background: white;
+    color: black;
+    cursor: pointer;
+`
+
+const Container = styled.div`
+    background-color: red;
+`
+
 
 export { LoginPage }; 
