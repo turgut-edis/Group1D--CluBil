@@ -1,16 +1,17 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import { history, Role } from '@/_helpers';
-import { authenticationService } from '@/_services';
-import { PrivateRoute } from '@/_components';
-import { HomePage } from '@/HomePage';
-import { AdminPage } from '@/AdminPage';
-import { LoginPage } from '@/LoginPage';
-import { PublicEventsList } from '../PublicEventsList/PublicEventsList';
-import { ContactUsPage } from '../ContactUsPage/ContactUsPage';
+import { history } from '../_helpers/history';
+import {Role} from '../_helpers/role';
+import { authenticationService } from '../_services/authentication.service';
+import { PrivateRoute } from '../_components/PrivateRoute';
+import HomePage from '../HomePage/HomePage';
+import AdminPage  from '../AdminPage/AdminPage';
+import  LoginPage  from '../LoginPage/LoginPage';
+import  PublicEventsList  from '../PublicEventsList/PublicEventsList';
+import  ContactUsPage  from '../ContactUsPage/ContactUsPage';
 
-class App extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -35,7 +36,7 @@ class App extends React.Component {
     render() {
         const { currentUser, isAdmin } = this.state;
         return (
-            <Router history={history}>
+            <Router>
                 <div>
                     {currentUser &&
                         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -50,11 +51,13 @@ class App extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-6 offset-md-3">
-                                    <PrivateRoute exact path="/" component={HomePage} />
-                                    <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
-                                    <Route path="/public" component={PublicEventsList} />
-                                    <Route path="/login" component={LoginPage} />
-                                    <Route path="/contact" component={ContactUsPage} />
+                                <Routes>
+                                    <PrivateRoute exact path="/" element={HomePage} />
+                                    <PrivateRoute path="/admin" roles={[Role.Admin]} element={AdminPage} />
+                                    <Route path="/public" element={PublicEventsList} />
+                                    <Route path="/login" element={LoginPage} />
+                                    <Route path="/contact" element={ContactUsPage} />
+                                    </Routes>
                                 </div>
                             </div>
                         </div>
@@ -64,5 +67,3 @@ class App extends React.Component {
         );
     }
 }
-
-export { App }; 
