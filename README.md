@@ -1,24 +1,70 @@
-﻿# CS319 - Group 1D - Student-Club-Manager
+# Getting Started with Create React App
 
-<p align="right"><b>:date: Last Edit:</b> Oct 10 2021.</p>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<b>:pushpin: Project Name:</b> CluBil<br /> <br />
-<b>:clipboard: Project Description:</b> 
-CluBil, is a project to create a medium to establish efficient communication between students and student clubs.
+## Available Scripts
 
-<b>For Students:</b>
-Students, with pre-existing credentials, will be able to log into their account as students and edit all of their profile details including an avatar and some description or contact information. Students will be able to join clubs and activities and have dashboards where they will be able to search and filter for the activity/club of their interest. They will also have an inbox-like page where they can see the private invitations ( e.g brainstorming sessions, teambuilding activities ) from the clubs they're a part of.
+In the project directory, you can run:
 
-<b>For Clubs:</b>
-Club accounts will also use their pre-defined credentials to log into the system. They have a more detailed profile/about page, including their information, purpose, contact information, recent/upcoming events and activity charts as well as a club logo avatar. Clubs can add/delete events, remove participants from clubs and send private event invitations to club participants. They can track the information about how many people signed up for the event and add/receive quotas to the events.
-There will be also a sysadmin account in place, for use in situations where manual intervention (blocking accounts, removing clubs creation of accounts and etc.) is needed.
+### `npm start`
 
-<b>Additional functions:</b>
-- Notifications before registering 
-- Avatar adding for event/club/student
-- Charts of activity for each club
-- Event info quotas recorded and can be tracked
-- Event calendar
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-<b>Participants:</b><br />
--Turgut Alp Edis <br />-Doğukan Ertunga Kurnaz <br />-Cemhan Kaan Özaltan <br />-İdil Yılmaz <br />-Argun Muradov <br />-Taha Batur Şenli<br />
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
