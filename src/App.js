@@ -21,7 +21,7 @@ function App() {
       <h1>Public Events Page</h1>
       <PublicEvent name='ORFest 2019' location='Bilkent' time='21:00' />
       <PublicEvent name='Pizza Party' location='B Building' time='19:00' />
-      <PublicEvent name='ORFest 2019' location='Bilkent' time='21:00' />
+      <PublicEvent name='ORgy Fest 2021' location='Mithat Coruh' time='10:00' />
     </div>
   );
 }
