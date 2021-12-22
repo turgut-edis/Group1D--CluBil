@@ -1,7 +1,4 @@
-import {Link, Route, Routes} from 'react-router-dom'
-import Contact from './Contact'
-import LogIn from './LogIn'
-import Collapsible from 'react-collapsible';
+import Link from 'react-router-dom'
 import styled from 'styled-components';
 import PublicEvent from './components/PublicEvent';
 
@@ -23,7 +20,7 @@ function App() {
       </nav>
       <h1>Public Events Page</h1>
       <PublicEvent name='ORFest 2019' location='Bilkent' time='21:00' />
-      <PublicEvent name='Ebenin Ami' location='Ananin Aminda' time='31:69' />
+      <PublicEvent name='Pizza Party' location='B Building' time='19:00' />
       <PublicEvent name='ORFest 2019' location='Bilkent' time='21:00' />
     </div>
   );
