@@ -1,4 +1,4 @@
-﻿# CS319 - Group 1D - Student-Club-Manager
+# CS319 - Group 1D - Student-Club-Manager
 
 <p align="right"><b>:date: Last Edit:</b> Oct 10 2021.</p>
 
