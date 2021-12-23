@@ -4,23 +4,60 @@ import img2 from "./INGlogo-e1460465121276.jpg";
 import {
   auth,
   signWithEmailAndPassword,
+  db
 } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./app.css";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [type, setType] = useState("");
   const [user, loading] = useAuthState(auth);
   const history = useNavigate();
 
-  useEffect(() => {
+  const fetchUsername = async () => {
+    try {
+        const docRef = doc(db, "users", user.email);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+          setType(docSnap.data().type);
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+        
+    }
+        catch(err) {
+        console.log(err);
+        alert("Fetch error");
+    }
+  }
+
+  useEffect(  () => {
     if (loading) {
       //Loading Screen
       return;
     }
-    if (user) history("/first", { replace: true });
-  }, [loading, user, history]);
+    
+    if (user) {
+       fetchUsername()
+       console.log("type.." ,type)
+
+        if(type == "Student") 
+        {
+          history("/contact", { replace: true });
+        }
+        else {
+          history("/first", { replace: true });
+        } 
+      
+    }
+  }, [loading, user, history, type]);
 
   return (
     <div class="login-wrap-2" >
