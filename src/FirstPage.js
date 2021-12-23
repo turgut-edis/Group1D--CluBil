@@ -2,23 +2,36 @@ import React, {useEffect, useState} from "react";
 import { Button } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
-import app from "./app.css"
+import "./app.css"
+//ToDo::
+//Ergun
 
 function FirstPage() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [data, setData]= useState();
     const history = useNavigate();
 
     const fetchUsername = async () => {
-        console.log(collection(db,"users"));
         try {
-            const querySnapShot = await getDocs(collection(db, "users")); 
-            const data = await querySnapShot.docs[0].data();
+            const docRef = doc(db, "users", user.email);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+
+            if (docSnap.exists()) {
+              console.log("Document data:", docSnap.data());
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+
             setName(data.name);
             setRole(data.type);
+            setData(data)
+
         } catch(err) {
             console.log(err);
             alert("Fetch error");
@@ -30,7 +43,7 @@ function FirstPage() {
         if (!user) return history("/", {replace: true});
         fetchUsername();
     }, [user, loading]);
-
+    
 
   return (
       <>
