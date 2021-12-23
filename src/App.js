@@ -11,21 +11,15 @@ function App() {
   //const commonProps = {name: 'ORFest 2019',location: 'Bilkent Sports International', time: "21:00"};
   return (
     <div>
-      <nav
-        style={{
-          paddingTop:"0.5rem",
-          position: "absolute",
-          right: "10px",
-        }}
-      >
-        <Button variant="info" className="login-page-button" onClick={() => routeChange("login")}>
+      <nav className="button-holder">
+        <Button variant="primary" className="btn btn-primary login-page-button" onClick={() => routeChange("login")}>
           Login
         </Button>
-        <Button variant="info"  className="contact-us-page-button" onClick={() => routeChange("contact")}>
+        <Button variant="secondary"  className="contact-us-page-button" onClick={() => routeChange("contact")}>
           Contact Us
         </Button>
       </nav>
-      <h1 className="public-events-title">Public Events Page</h1>
+      <div className="display-5 public-events-title">Open Access Events</div>
       <div className="public-events">
         <PublicEvent
           name="ORFest 2019 🎊"

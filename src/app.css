@@ -185,16 +185,27 @@ a {
 }
 
 .public-events-title {
-  font-size: 30;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+  
+  text-align: center;
   
 }
 
 .login-page-button {
   margin-right: 10px;
   width: 120px;
+  right: 0;
 }
 
 .contact-us-page-button {
   width: 120px;
+}
+
+.button-holder {
+  display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: flex-end;
+    height: auto;
+
 }
