@@ -65,22 +65,22 @@ export default function Calendar (){
 
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="/first">
                     Event List
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="/calendar">
                     Calendar
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="/clubs">
                     Clubs
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="/finance">
                     Finance
                   </a>
                 </li>
@@ -104,6 +104,7 @@ export default function Calendar (){
         </nav>
         <div>You're logged in as {role} </div>
         <div>Your name is {name}</div>
+        <div>You're in Calendar Page</div>
       </div>
     );
   }
