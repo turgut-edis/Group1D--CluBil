@@ -64,7 +64,7 @@ function FirstPage() {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a class="navbar-brand mt-2 mt-lg-0" href="/first">
         <img
           src="https://w3.bilkent.edu.tr/logo/ing-amblem.png"
           height="35"
