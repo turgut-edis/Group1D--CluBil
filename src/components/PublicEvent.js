@@ -1,32 +1,19 @@
-import Collapsible from 'react-collapsible';
-import styled from 'styled-components';
-
+import { Accordion } from "react-bootstrap";
 
 function PublicEvent(props) {
-console.log(props)
+  console.log(props);
   return (
-    <div>
-      <Event>
-        <Collapsible trigger={props.name}>
-          <p>
-            Location📍: {props.location}
-          </p>
-          <p>
-            Time⏰:     {props.time}
-          </p>
-          <p>
-            Description✏️:     {props.time}
-          </p>
-          </Collapsible>
-      </Event>
-      </div>
+    <Accordion>
+      <Accordion.Item eventKey={props.eventKey}>
+        <Accordion.Header>{props.name}</Accordion.Header>
+        <Accordion.Body>
+          <p>Location📍: {props.location}</p>
+          <p>Time⏰: {props.time}</p>
+          <p>Description✏️: {props.time}</p>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   );
 }
-
-const Event = styled.div`
- border: 1px solid black;
- cursor: pointer;
- padding: 5;
-`
 
 export default PublicEvent;

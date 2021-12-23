@@ -1,25 +1,22 @@
-import Collapsible from 'react-collapsible';
-import styled from 'styled-components';
-
+import { Accordion } from "react-bootstrap";
 
 function Contact(props) {
-console.log(props)
+  console.log(props);
   return (
-    <div>
-      <Contacts>
-        <Collapsible trigger={props.name}>
-        <a>Mail ✉️:</a>
-        <a href="mailto:example@example.com">Click here if you have any trouble</a>
-          </Collapsible>
-      </Contacts>
-      </div>
+    <Accordion defaultActiveKey="1">
+      <Accordion.Item eventKey={props.eventKey}>
+        <Accordion.Header>{props.name}</Accordion.Header>
+        <Accordion.Body>
+          <p>
+            Mail ✉️:
+            <a href="mailto:example@example.com">
+              Click here if you have any trouble
+            </a>
+          </p>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   );
 }
-
-const Contacts = styled.div`
- border: 1px solid black;
- cursor: pointer;
- padding: 5;
-`
 
 export default Contact;
