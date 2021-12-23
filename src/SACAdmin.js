@@ -73,6 +73,11 @@ export default function SACAdmin() {
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="/calendar">
+                    Calendar
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="/clubs">
                     Clubs
                   </a>
