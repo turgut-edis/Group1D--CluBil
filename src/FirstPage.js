@@ -9,6 +9,7 @@ import app from "./app.css"
 function FirstPage() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
+    const [role, setRole] = useState("");
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -17,6 +18,7 @@ function FirstPage() {
             const querySnapShot = await getDocs(collection(db, "users")); 
             const data = await querySnapShot.docs[0].data();
             setName(data.name);
+            setRole(data.type);
         } catch(err) {
             console.log(err);
             alert("Fetch error");
@@ -88,11 +90,14 @@ function FirstPage() {
           loading="lazy"
         />
         <button type="button" class="btn btn-primary" onClick={logout}>Logout</button>
+        
       
     </div>
+    
   </div>
 </nav>
-    
+    <div>You're logged in as {role} </div>
+    <div>Your name is {name}</div>
         
         </>
   );

@@ -23,7 +23,7 @@ const Login = () => {
   }, [loading, user, history]);
 
   return (
-    <div class="login-wrap-2" style={{ paddingTop: "60px" }}>
+    <div class="login-wrap-2" >
       <div class="login-wrap">
         <div class="login-html">
           <input id="tab-1" type="radio" name="tab" class="sign-in" checked />
@@ -34,9 +34,9 @@ const Login = () => {
             <div class="sign-in-htm">
               <img src={img2} width="300" height="70" className="im" />
               <p style={{ marginBottom: "0" }}>
-                <h3 style={{ color: "#0A1551", marginTop: "40px" }}>
-                  Student Club Manager System
-                </h3>
+                <div style={{ color: "#0A1551", marginTop: "40px", fontSize: "20px", textAlign: "center" }}>
+                  Club Management System
+                </div>
               </p>
 
               <div class="group">
