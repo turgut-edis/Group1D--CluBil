@@ -18,34 +18,41 @@ function App() {
           right: "10px",
         }}
       >
-        <Button variant="info" onClick={() => routeChange("login")}>
+        <Button variant="info" className="login-page-button" onClick={() => routeChange("login")}>
           Login
         </Button>
-        <Button variant="info" onClick={() => routeChange("contact")}>
+        <Button variant="info"  className="contact-us-page-button" onClick={() => routeChange("contact")}>
           Contact Us
         </Button>
       </nav>
-      <h1>Public Events Page</h1>
-      <PublicEvent
-        name="ORFest 2019"
-        location="Bilkent"
-        time="21:00"
-        eventKey="0"
-      />
-      <PublicEvent
-        name="Pizza Party"
-        location="B Building"
-        time="19:00"
-        eventKey="1"
-      />
-      <PublicEvent
-        name="OR Fest 2021"
-        location="Mithat Coruh"
-        time="10:00"
-        eventKey="2"
-      />
+      <h1 className="public-events-title">Public Events Page</h1>
+      <div className="public-events">
+        <PublicEvent
+          name="ORFest 2019 🎊"
+          location="Bilkent"
+          time="21:00"
+          description="Littest party of 2019"
+          eventKey="0"
+        />
+        <PublicEvent
+          name="Pizza Party🍕"
+          location="B Building"
+          time="19:00"
+          description="Let's eat some pizza!!!"
+          eventKey="1"
+        />
+        <PublicEvent
+          name="CodeCamp 2021💻"
+          location="Mithat Coruh"
+          time="10:00"
+          description="Littest code party of 2021"
+          eventKey="2"
+        />
+      </div>
     </div>
   );
 }
+
+
 
 export default App;

@@ -181,3 +181,21 @@ a {
   text-align: bottom;
 }
 
+.public-events {
+  padding: 10px;
+}
+
+.public-events-title {
+  font-size: 30;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+
+.login-page-button {
+  margin-right: 10px;
+  width: 120px;
+}
+
+.contact-us-page-button {
+  width: 120px;
+}

@@ -9,7 +9,7 @@ function PublicEvent(props) {
         <Accordion.Body>
           <p>Location📍: {props.location}</p>
           <p>Time⏰: {props.time}</p>
-          <p>Description✏️: {props.time}</p>
+          <p>Description✏️: {props.description}</p>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
