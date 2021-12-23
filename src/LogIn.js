@@ -8,7 +8,7 @@ import {
 } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./app.css";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
+import { doc, getDoc } from "firebase/firestore/lite";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,8 +24,8 @@ const Login = () => {
         const data = docSnap.data();
 
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
-          setType(docSnap.data().type);
+          console.log("Document data:", data);
+          setType(data.type);
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -48,13 +48,18 @@ const Login = () => {
        fetchUsername()
        console.log("type.." ,type)
 
-        if(type == "Student") 
+        if(type === "Student") 
         {
-          history("/contact", { replace: true });
-        }
-        else {
           history("/first", { replace: true });
+        }
+        else if(type === "adminrolu") {
+          history("/admin", { replace: true });
+        } else if(type === "SAC Admin"){
+          history("/sacadmin", { replace: true });
         } 
+        else{
+          console.log(type);
+        }
       
     }
   }, [loading, user, history, type]);

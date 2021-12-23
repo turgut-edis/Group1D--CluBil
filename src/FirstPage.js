@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { Button } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
+import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import "./app.css"
 //ToDo::

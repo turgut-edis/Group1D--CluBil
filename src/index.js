@@ -5,7 +5,10 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LogIn from './LogIn'
 import Contact from './Contact';
 import FirstPage from './FirstPage';
+import Calendar from './Calendar';
+import AdminPage from './AdminPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SACAdmin from './SACAdmin';
 
 function Routtes() {
   return (
@@ -15,6 +18,9 @@ function Routtes() {
       <Route path="login" element={<LogIn />} />
       <Route path="contact" element={<Contact />} />
       <Route path="first" element={<FirstPage/>}/>
+      <Route path="admin" element={<AdminPage/>}/>
+      <Route path="calendar" element={<Calendar/>}/>
+      <Route path="sacadmin" element={<SACAdmin/>}/>
     </Routes>
    </BrowserRouter>
   );
