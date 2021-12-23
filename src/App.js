@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PublicEvent from './components/PublicEvent';
 
 function App() {
-  const commonProps = {name: 'ORFest 2019',location: 'Bilkent Sports International', time: "21:00"};
+  //const commonProps = {name: 'ORFest 2019',location: 'Bilkent Sports International', time: "21:00"};
   return (
     <div>
       <nav
