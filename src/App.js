@@ -13,8 +13,7 @@ function App() {
     <div>
       <nav
         style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
+          paddingTop:"0.5rem",
           position: "absolute",
           right: "10px",
         }}
