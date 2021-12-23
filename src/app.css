@@ -193,12 +193,15 @@ a {
 
 .login-page-button {
   margin-right: 10px;
+  margin-top: 10px;
   width: 120px;
   right: 0;
 }
 
 .contact-us-page-button {
   width: 120px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
 .button-holder {
