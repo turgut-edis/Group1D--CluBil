@@ -1,24 +1,32 @@
-const manager = require("./Manager");
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import check from "./Manager";
 
 class LoginManager {
-    constructor (){
-     if(! LoginManager.instance){
-       LoginManager._logM = this;
-     }
-  
-     return LoginManager._logM;
-    }
-
-    getInstance (){
+    constructor() {
+        if (!LoginManager._logM) {
+            LoginManager._logM = this;
+        }
         return LoginManager._logM;
     }
-    
-    login (credential, passwordEntered){}
-    
-  }
-  
-const instance = new LoginManager();
-if (manager.check(instance)){
-  Object.freeze(instance);  
-    module.exports={instance}
+
+    getInstance() {
+        return LoginManager._logM;
+    }
+
+    async login(credential, passwordEntered) {
+        try {
+            await signInWithEmailAndPassword(getAuth(), credential, passwordEntered);
+            return true;
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+            return false;
+        }
+    }
 }
+
+const login_instance = new LoginManager();
+if (check(login_instance)) {
+    Object.freeze(login_instance);
+}
+export default login_instance;

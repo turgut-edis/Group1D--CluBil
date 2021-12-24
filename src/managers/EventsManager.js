@@ -1,8 +1,8 @@
-const manager = require("./Manager");
+import check from "./Manager";
 
 class EventsManager {
     constructor(){
-     if(! EventsManager.instance){
+     if(! EventsManager._eventM){
        EventsManager._eventM = this;
      }
   
@@ -31,8 +31,9 @@ class EventsManager {
     
   }
   
-const instance = new EventsManager();
-if (manager.check(instance)){
-  Object.freeze(instance);  
-    module.exports={instance}
+const eventManager_instance = new EventsManager();
+if (check(eventManager_instance)){
+  Object.freeze(eventManager_instance);  
+    
 }
+export default eventManager_instance;

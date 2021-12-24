@@ -1,8 +1,8 @@
-const manager = require("./Manager");
+import check from "./Manager";
 
 class PublicEventManager {
     constructor(){
-     if(! PublicEventManager.instance){
+     if(! PublicEventManager._pem){
        PublicEventManager._pem = this;
      }
   
@@ -17,8 +17,9 @@ class PublicEventManager {
     
   }
   
-const instance = new PublicEventManager();
-if (manager.check(instance)){
-  Object.freeze(instance);  
-    module.exports={instance}
+const publicEvent_instance = new PublicEventManager();
+if (check(publicEvent_instance)){
+  Object.freeze(publicEvent_instance);  
+    
 }
+export default publicEvent_instance;

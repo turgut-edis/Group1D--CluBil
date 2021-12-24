@@ -1,8 +1,8 @@
-const manager = require("./Manager");
+import check from "./Manager";
 
 class ClubsManager {
     constructor (){
-     if(! ClubsManager.instance){
+     if(! ClubsManager._clubM){
        ClubsManager._clubM = this;
      }
   
@@ -40,8 +40,9 @@ class ClubsManager {
     addEventRequest (){}
   }
   
-const instance = new ClubsManager();
-if (manager.check(instance)){
-  Object.freeze(instance);  
-    module.exports={instance}
+const clubs_instance = new ClubsManager();
+if (check(clubs_instance)){
+  Object.freeze(clubs_instance);  
+    
 }
+export default clubs_instance;

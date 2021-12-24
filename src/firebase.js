@@ -53,10 +53,6 @@ const sendPasswordResetEmail = async (email) => {
     }
 };
 
-const addEvent = async (name, date, eventTime, eventDescription, eventQuota, confirmed) => {
-
-}
-
 const logout = () => {
     auth.signOut();
 };

@@ -1,17 +1,13 @@
 const Manager = {
-    getInstance: function getInstance(Manager) {
+    getInstance: function getInstance() {
         return Manager;
     }
 };
 
-function check(who) {  
+export default function check(who) {  
     if ((typeof who.getInstance == "function")) {  
         who.getInstance(who);  
         return true;  
     }  
     return false;  
 }
-
-module.exports = {
-    check
-};

@@ -1,8 +1,8 @@
-const manager = require("./Manager");
+import check from "./Manager";
 
 class StudentsManager {
     constructor(){
-     if(! StudentsManager.instance){
+     if(! StudentsManager._studentM){
        StudentsManager._studentM = this;
      }
   
@@ -35,8 +35,8 @@ class StudentsManager {
     
   }
   
-const instance = new StudentsManager();
-if (manager.check(instance)){
-  Object.freeze(instance);  
-    module.exports={instance}
+const student_instance = new StudentsManager();
+if (check(student_instance)){
+    Object.freeze(student_instance);  
 }
+export default student_instance;

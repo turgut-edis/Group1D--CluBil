@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import img2 from "./INGlogo-e1460465121276.jpg";
 import {
   auth,
-  signWithEmailAndPassword,
   db
 } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./app.css";
 import { doc, getDoc } from "firebase/firestore/lite";
+import Manage  from "./managers/ManagerFacade";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -111,7 +111,7 @@ const Login = () => {
                   type="submit"
                   class="button"
                   value="Sign In"
-                  onClick={() => signWithEmailAndPassword(email, password)}
+                  onClick={() => Manage("login").login(email, password)}
                 />
               </div>
             </div>

@@ -1,5 +1,5 @@
-const a = require("./StudentManager");
+const a = require("./ManagerFacade").default;
 
-const ab = a.instance.getInstance().addJoinedClub(11,12);
+const ab = a.manage("login").getInstance().login("admin@admin.com", "123456");
 
 console.log(ab)

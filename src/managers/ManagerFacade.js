@@ -1,23 +1,23 @@
-const smanager = require("./StudentManager");
-const pemanager = require("./PublicEventManager");
-const cmanager = require("./ClubsManager");
-const emanager = require("./EventsManager");
-const lmanager = require("./LoginManager");
+import studentManager_instance from "./StudentManager";
+import  publicEvent_instance from "./PublicEventManager";
+import  clubManager_instance from "./ClubsManager";
+import eventManager_instance from "./EventsManager";
+import loginManager_instance from "./LoginManager";
 
-function manage(managerType){
+function Manage(managerType){
     if (managerType === "login"){
-        return lmanager;
+        return loginManager_instance.getInstance();
     } else if (managerType === "student"){
-        return smanager;
+        return studentManager_instance.getInstance();
     } else if (managerType === "club"){
-        return cmanager;
+        return clubManager_instance.getInstance();
     } else if (managerType === "event"){
-        return emanager;
+        return eventManager_instance.getInstance();
     } else if (managerType === "publicevent"){
-        return pemanager;
+        return publicEvent_instance.getInstance();
     } else {
         return null;
     } 
 }
 
-module.exports={manage}
+export default Manage;
