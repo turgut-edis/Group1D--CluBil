@@ -7,6 +7,7 @@ import Contact from './Contact';
 import FirstPage from './FirstPage';
 import Calendar from './Calendar';
 import AdminPage from './AdminPage';
+import Clubs from './Clubs';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SACAdmin from './SACAdmin';
 
@@ -20,6 +21,7 @@ function Routtes() {
       <Route path="first" element={<FirstPage/>}/>
       <Route path="admin" element={<AdminPage/>}/>
       <Route path="calendar" element={<Calendar/>}/>
+      <Route path="clubs" element={<Clubs />}/>
       <Route path="sacadmin" element={<SACAdmin/>}/>
     </Routes>
    </BrowserRouter>
