@@ -40,7 +40,7 @@ export default function AdminPage () {
 
     return (
       <div>
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-admin">
           <div class="container-fluid">
             <button
               class="navbar-toggler"

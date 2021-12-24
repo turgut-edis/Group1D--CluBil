@@ -217,6 +217,14 @@ a {
   background-color: darkorchid;
 }
 
+.navbar-custom-admin {
+  background-color: darkred;
+}
+
+.navbar-custom-sacadmin {
+  background-color: green;
+}
+
 .logout-button {
   display: flex;
   margin-right: -5px;

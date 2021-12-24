@@ -42,7 +42,7 @@ export default function SACAdmin() {
     
     return (
       <div>
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-sacadmin">
           <div class="container-fluid">
             <button
               class="navbar-toggler"
