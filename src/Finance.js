@@ -1,13 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
-import "./app.css"
 
-export default function Clubs () {
+export default function Finance () {
     return(
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+      <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
  
   <div class="container-fluid">
     <button
@@ -67,4 +63,3 @@ export default function Clubs () {
 </nav>
     );
 }
-
