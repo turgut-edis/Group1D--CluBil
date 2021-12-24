@@ -74,10 +74,10 @@ const Login = () => {
           <label for="tab-2" class="tab" display="none"></label>
           <div class="login-form">
             <div class="sign-in-htm">
-              <img src={img2} width="300" height="70" className="im" />
-              <p style={{ marginBottom: "0" }}>
-                <div style={{ color: "#0A1551", marginTop: "40px", fontSize: "20px", textAlign: "center" }}>
-                  Club Management System
+              <img src={img2} width="400" height="85"/>
+              <p style={{ marginBottom: "50" }}>
+                <div style={{ color: "#0A1551", marginTop: "23px", fontSize: "20px", textAlign: "center" }}>
+                  Club Management System Login
                 </div>
               </p>
 
@@ -105,27 +105,6 @@ const Login = () => {
                   data-type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </div>
-              <div class="group">
-                <input
-                  id="check"
-                  type="checkbox"
-                  class="check"
-                  valuPropName="checked"
-                />
-                <label
-                  for="check"
-                  style={{ color: "#0A1551", display: "flex" }}
-                >
-                  <span
-                    class="icon"
-                    style={{
-                      backgroundColor: "rgba(128, 128, 128, 0.24)",
-                      color: "#0A1551",
-                    }}
-                  ></span>{" "}
-                  Remember Me{" "}
-                </label>
               </div>
               <div class="group">
                 <input
