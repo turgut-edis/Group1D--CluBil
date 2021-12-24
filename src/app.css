@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #e4e6f2 !important;
+  background-color: #ffffff !important;
   font: 600 16px/18px "Open Sans", sans-serif;
 }
 *,
@@ -214,7 +214,7 @@ a {
 }
 
 .navbar-custom {
-  background-color: darkorchid;
+  background-color: #9932cc;
 }
 
 .navbar-custom-admin {

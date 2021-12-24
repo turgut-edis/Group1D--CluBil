@@ -153,6 +153,7 @@ export default function Calendar (){
           </div>
         </nav>
         <div className="App">
+      <div className="Calendar">
       <FullCalendar
         defaultView="dayGridMonth"
         header={{
@@ -164,8 +165,10 @@ export default function Calendar (){
         plugins={[dayGridPlugin]}
         events={events}
         displayEventEnd="true"
-        eventColor={"#" + Math.floor(Math.random() * 16777215).toString(16)}
+        eventColor={"#9932cc"}
       />
+      </div>
+      
     </div>
       </div>
     );
