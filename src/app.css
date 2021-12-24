@@ -237,3 +237,16 @@ a {
   margin-right: 10px;
   margin-left: 15px;
 }
+
+.public-event-page-button {
+  margin-top: 10px;
+}
+
+.contact-us-page-title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.contact-us-collapsible {
+  padding: 10px;
+}

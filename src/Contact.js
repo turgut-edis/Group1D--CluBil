@@ -13,7 +13,7 @@ function ContactUs() {
   return (
     (<h1>Contact</h1>),
     (
-      <div>
+      <div className="contact-us-collapsible">
         <nav
           style={{
             borderBottom: "solid 1px",
@@ -22,11 +22,11 @@ function ContactUs() {
             right: "10px",
           }}
         >
-          <Button variant="info" onClick={() => routeChange("/")}>
+          <Button variant="primary" className="public-event-page-button" onClick={() => routeChange("/")}>
             Public Event List
           </Button>
         </nav>
-        <h1>Contact Us Page</h1>
+        <div className="display-5 contact-us-page-title">Contact Us Page</div>
         <Contact
           name="Contact Us"
           mail='<a href=“mailto:mailadresi@mailservisi.com">Bize mail göndermek için tıklayın</a>'
