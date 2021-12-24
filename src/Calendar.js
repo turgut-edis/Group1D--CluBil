@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import "./app.css"
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 export default function Calendar (){
     const [user, loading] = useAuthState(auth);
@@ -37,7 +39,55 @@ export default function Calendar (){
       if (!user) return history("/", { replace: true });
       fetchUsername();
     }, [user, loading]);
+    const events = [
+      { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
+      {
+        title: "Long Event",
+        start: getDate("YEAR-MONTH-07"),
+        end: getDate("YEAR-MONTH-10")
+      },
+      {
+        groupId: "999",
+        title: "Repeating Event",
+        start: getDate("YEAR-MONTH-09T16:00:00+00:00")
+      },
+      {
+        groupId: "999",
+        title: "Repeating Event",
+        start: getDate("YEAR-MONTH-16T16:00:00+00:00")
+      },
+      {
+        title: "Conference",
+        start: "YEAR-MONTH-17",
+        end: getDate("YEAR-MONTH-19")
+      },
+      {
+        title: "Meeting",
+        start: getDate("YEAR-MONTH-18T10:30:00+00:00"),
+        end: getDate("YEAR-MONTH-18T12:30:00+00:00")
+      },
+      { title: "Lunch", start: getDate("YEAR-MONTH-18T12:00:00+00:00") },
+      { title: "Birthday Party", start: getDate("YEAR-MONTH-19T07:00:00+00:00") },
+      { title: "Meeting", start: getDate("YEAR-MONTH-18T14:30:00+00:00") },
+      { title: "Happy Hour", start: getDate("YEAR-MONTH-18T17:30:00+00:00") },
+      { title: "Dinner", start: getDate("YEAR-MONTH-18T20:00:00+00:00") }
+    ];
+    
+    function getDate(dayString) {
+      const today = new Date();
+      const year = today.getFullYear().toString();
+      let month = (today.getMonth() + 1).toString();
+    
+      if (month.length === 1) {
+        month = "0" + month;
+      }
+    
+      return dayString.replace("YEAR", year).replace("MONTH", month);
+    }
+    console.log("You're logged in as {role}")
+    console.log("Your name is {name}")
     return (
+      
       <div>
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
           <div class="container-fluid">
@@ -102,9 +152,24 @@ export default function Calendar (){
             </div>
           </div>
         </nav>
-        <div>You're logged in as {role} </div>
-        <div>Your name is {name}</div>
-        <div>You're in Calendar Page</div>
+        <div className="App">
+      <FullCalendar
+        defaultView="dayGridMonth"
+        header={{
+          left: "prev,next",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay"
+        }}
+        themeSystem="Simplex"
+        plugins={[dayGridPlugin]}
+        events={events}
+        displayEventEnd="true"
+        eventColor={"#" + Math.floor(Math.random() * 16777215).toString(16)}
+      />
+    </div>
       </div>
+      
+      
+
     );
   }
