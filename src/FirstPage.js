@@ -83,9 +83,6 @@ function FirstPage() {
         <li class="nav-item">
           <a class="nav-link" href="/clubs">Clubs</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/finance">Finance</a>
-        </li>
       </ul>
 
     </div>

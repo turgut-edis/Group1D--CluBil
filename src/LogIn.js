@@ -52,9 +52,9 @@ const Login = () => {
         {
           history("/first", { replace: true });
         }
-        else if(type === "adminrolu") {
+        else if(type === "adminrolu") { // bu sac admin olacak
           history("/admin", { replace: true });
-        } else if(type === "SAC Admin"){
+        } else if(type === "SAC Admin"){ // bu advisor olacak
           history("/sacadmin", { replace: true });
         } 
         else{
