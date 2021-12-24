@@ -39,7 +39,7 @@ export default function Calendar (){
     }, [user, loading]);
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
           <div class="container-fluid">
             <button
               class="navbar-toggler"
@@ -88,7 +88,7 @@ export default function Calendar (){
             </div>
 
             <div class="d-flex align-items-center">
-              <p class="navbar-text">{name}</p>
+            <div class="navbar-text username-css">{name}</div>
               <img
                 src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
                 class="rounded-circle"
@@ -96,7 +96,7 @@ export default function Calendar (){
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
               />
-              <button type="button" class="btn btn-primary" onClick={logout}>
+              <button type="button" class="btn btn-primary logout-button" onClick={logout}>
                 Logout
               </button>
             </div>

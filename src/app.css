@@ -212,3 +212,20 @@ a {
     height: auto;
 
 }
+
+.navbar-custom {
+  background-color: darkorchid;
+}
+
+.logout-button {
+  display: flex;
+  margin-right: -5px;
+  margin-left: 15px;
+  height: auto;
+}
+
+.username-css {
+  display: flex;
+  margin-right: 10px;
+  margin-left: 15px;
+}
