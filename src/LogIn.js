@@ -53,7 +53,7 @@ const Login = () => {
         }
         else if(type === "adminrolu") { // bu sac admin olacak
           history("/admin", { replace: true });
-        } else if(type === "SAC Admin"){ // bu advisor olacak
+        } else if(type === "clubAdvisor"){ // bu advisor olacak
           history("/sacadmin", { replace: true });
         } 
         else{
