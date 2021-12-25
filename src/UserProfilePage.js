@@ -11,7 +11,7 @@ import { type } from "@testing-library/user-event/dist/type";
 function UserProfilePage() {
     const [user] = useAuthState(auth);
     const [name, setName] = useState("");
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState("student");
     const [joinedClubs, setJoinedClubs] = useState("");
     const [advisingClub, setAdvisingClub] = useState("");
     const [email, setEmail] = useState("");

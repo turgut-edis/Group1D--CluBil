@@ -43,7 +43,7 @@ class EventsManager {
             console.log("No document");
         }
     } */
-
+    
     async deleteEvent(eventId){
         try {
             await deleteDoc(doc(db, 'events', eventId));
@@ -62,6 +62,19 @@ class EventsManager {
             const participants = event.getParticipants();
             participants.push(studentMail);
             await updateDoc(eventRef, { participants: participants });
+            await updateDoc(eventRef, { quota: eventQuota});
+        } else {
+            console.log("No document");
+        }
+    }
+
+    async removeStudentFromEvent(eventId, studentMail){
+        const eventRef = doc(db, 'events', eventId).withConverter(eventConverter);
+        const docEvent = await getDoc(eventRef);
+        if (docEvent.exists()){
+            const event = docEvent.data();
+            const eventQuota = event.getQuota() + 1;
+            await updateDoc(eventRef, { participants: arrayRemove(studentMail) });
             await updateDoc(eventRef, { quota: eventQuota});
         } else {
             console.log("No document");

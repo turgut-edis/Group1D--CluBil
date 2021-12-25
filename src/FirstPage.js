@@ -18,9 +18,13 @@ function FirstPage() {
   
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
+    const [studentEmail, setStudentEmail] = useState("")
     const [role, setRole] = useState("");
     const [data, setData]= useState();
     const [activeItem, setActiveItem] = useState(0);
+    const [currentEventJoined, setJoined] = useState(false)
+    const [registeredEvents, setRegisteredEvent] = useState([])
+
     
     const [noOfRows, setNoOfRows] = useState(1);
     const history = useNavigate();
@@ -29,6 +33,20 @@ function FirstPage() {
       var b = await Manage("event").getAllEvents()
       setData(b)
       setNoOfRows(b)
+    }
+
+    const joinEventHandler = async (eventId, studentMail) => {
+       setJoined(true)
+       await Manage("student").addJoinedEvent(studentMail, eventId)
+      await Manage("event").addStudentToEvent(eventId, studentMail)
+        
+        
+    }
+
+    const leaveEventHandler = async (eventId, studentMail) => {
+      setJoined(false)
+      await Manage("student").removeJoinedEvent(studentMail, eventId)
+      
     }
 
     const fetchUsername = async () => {
@@ -45,6 +63,8 @@ function FirstPage() {
             }
 
             setName(data.name);
+            setStudentEmail(docRef.id)
+            setRegisteredEvent(data.registeredEvents)
 
         } catch(err) {
             console.log(err);
@@ -60,21 +80,32 @@ function FirstPage() {
          
         await fetchEventData()
         await fetchUsername()
-        console.log("EFFECT")
         
     }, [user]);
 
     if(data != null)
       console.log(data[0].getDescription())
-    console.log("You're logged in as {role}")
-    console.log("Your name is {name}")
-    console.log("You're in EventList Page")
     
     const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setJoined(false)
+  }
   const handleShow = (item) => {
     setActiveItem(item)
+    
+    //
+    let eventId = (item + 1).toString()
+    console.log('itenm', eventId)
+    console.log('events', registeredEvents)
+
+    registeredEvents.forEach((event) => {
+      if(eventId == event) {
+        
+        setJoined(true)
+      }
+    })
     setShow(true);
   }
     
@@ -211,6 +242,16 @@ function FirstPage() {
             <div>Date:</div> <div>{data[activeItem].getDateRequested()}  </div>
             </div>
           </div>
+          { currentEventJoined ?
+          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler(studentEmail, data[activeItem].getId() )}>
+            Leave Event
+          </Button>)
+          :
+          (<Button variant="success" size="sm" onClick={() => joinEventHandler(data[activeItem].getId(), studentEmail)}>
+          Join Event
+        </Button>)
+
+          }
           </Modal.Body>
         <Modal.Footer>
          
