@@ -234,6 +234,7 @@ a {
 
 .username-css {
   display: flex;
+  text-align: center;
   margin-right: 10px;
   margin-left: 15px;
 }
