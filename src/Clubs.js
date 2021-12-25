@@ -3,12 +3,23 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
+import { Button} from 'react-bootstrap';
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
 import "./app.css"
 
 export default function Clubs () {
   const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [show, setShow] = useState(false);
+    const [noOfRows, setNoOfRows] = useState(1);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -39,6 +50,7 @@ export default function Clubs () {
     }, [user, loading]);
 
     return(
+      <>
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
  
   <div class="container-fluid">
@@ -102,6 +114,57 @@ export default function Clubs () {
     
   </div>
 </nav>
+<div className="app container p-5">
+      <table class="table table-hover table-bordered p-5">
+        <thead>
+          <tr>
+            
+            <th scope="col">#</th>
+            <th scope="col"><center>Club Code</center></th>
+            <th scope="col"><center>Club Name</center></th>
+            <th scope="col"><center>Operations</center></th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+        {[...Array(noOfRows)].map((elementInArray, index) => {
+         
+              return (
+              
+                <tr>
+                <th scope="row">{index}</th>
+                <td><center>ACM</center></td>
+                <td><center>ACM Bilkent Student Chapter</center></td>
+                <div>
+                    <center>
+                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    Show More
+                    </Button>
+                    </center>
+                </div>
+                
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Club Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Bruh we gotta make this a class too</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+              </tr>
+                );
+            })}
+            
+        </tbody>
+            </table>
+       </div>
+</>
     );
 }
 
