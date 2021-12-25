@@ -259,3 +259,42 @@ a {
 .App {
   padding: 10px;
 }
+
+.profileinfo-css {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: sans-serif;
+  font-size:22px;
+}
+
+.profilepic {
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.nametext {
+  margin-top: 10px;
+  margin-left: 5%;
+  font-family: sans-serif;
+}
+
+.changepassw {
+  margin-top: 10px;
+  margin-left: 25px;
+  
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.editprofile {
+  margin-top: 10px;
+  margin-left: 25px;
+  
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.left {
+  float: left;
+  position: absolute;
+}

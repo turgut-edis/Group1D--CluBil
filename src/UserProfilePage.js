@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import "./app.css"
-import UserProfilePage from "./UserProfilePage";
 //ToDo::
-//Ergun
+//Taha
 
-function FirstPage() {
+function UserProfilePage() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
@@ -92,7 +91,6 @@ function FirstPage() {
    
     <div class="d-flex align-items-center">
     <div class="navbar-text username-css">{name}</div>
-        <a href="https://clubil.web.app/userprofilepage">
           <img
           src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
           class="rounded-circle"
@@ -100,19 +98,37 @@ function FirstPage() {
           alt="Black and White Portrait of a Man"
           loading="lazy"
         />
-        </a>
         <button type="button" class="btn btn-primary logout-button" onClick={logout}>Logout</button>
         
       
     </div>
     
-  </div>
-</nav>
-    <div>You're logged in as {role} </div>
-    <div>Your name is {name}</div>
-    <div>You're in EventList Page</div>
-        
+    </div>
+    </nav>
+    <div class="d-flex align-items-center profilepic">
+          <img
+          src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
+          class="rounded-circle"
+          max width="200"
+          max height="200"
+          alt="Black and White Portrait of a Man"
+          loading="lazy"
+          />
+          
+          <div class="profileinfo-css"><strong>Full Name:</strong> {name} <br />
+                                     <strong>Mail:</strong> {name} <br />
+                                     <strong>Joined Clubs:</strong> {name} <br />
+                                     <strong>Role:</strong> {name} <br /></div>
+    </div>
+
+    <div class="nametext"> <strong>{name}</strong> </div>
+      
+<br />
+    <button type="button" class="btn btn-primary changepassw nametext" onClick={logout}>Change Password</button>
+
+<br />
+    <button type="button" class="btn btn-primary editprofile nametext" onClick={logout}>Edit Profile</button>
         </>
   );
 }
-export default FirstPage;
+export default UserProfilePage;
