@@ -24,7 +24,7 @@ function EventListClub() {
     const [show, setShow] = useState(false);
     const [currentEventJoined, setJoined] = useState(false)
     const [registeredEvents, setRegisteredEvent] = useState([])
-    
+    const [newEventsData, setNewEventsData] = useState([])
     const [noOfRows, setNoOfRows] = useState(1);
     const history = useNavigate();
 
@@ -93,6 +93,19 @@ function EventListClub() {
   if(data == null) {
     return <div>loading...</div>
   }
+  if(newEventsData.length == 0)
+    {
+    data.forEach(element => {
+          console.log(element, user.email)
+        
+          if(element.getClub() == user.email) {
+                setNewEventsData(newEventsData => [...newEventsData, element]
+                )
+      
+          }
+    });
+    }
+      console.log(newEventsData)
 
   return (
       <>
@@ -176,16 +189,16 @@ function EventListClub() {
           </tr>
         </thead>
         <tbody>
-        {data.map((elementInArray, index) => {
+        {newEventsData.map((elementInArray, index) => {
               console.log(elementInArray, index)
               return (
               
                 <tr>
                 <th scope="row">{index + 1}</th>
-                <td><center>{data[index].getName()}</center></td>
-                <td><center>{data[index].getClub()}</center></td>
-                <td><center>{data[index].getDateRequested()}</center></td>
-                <td><center>{data[index].getTimeRequested()}</center></td>
+                <td><center>{newEventsData[index].getName()}</center></td>
+                <td><center>{newEventsData[index].getClub()}</center></td>
+                <td><center>{newEventsData[index].getDateRequested()}</center></td>
+                <td><center>{newEventsData[index].getTimeRequested()}</center></td>
                 <div>
                     <center>
                     <Button variant="primary" size="sm" onClick={() => handleShow(index)}>
@@ -197,30 +210,30 @@ function EventListClub() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{data[activeItem].getName()}</Modal.Title>
+          <Modal.Title>{newEventsData[activeItem].getName()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="popup-info-container">
             <div className="popup-info-holder">
-            <div>Location:</div> <div>{data[activeItem].getLocation()}</div>
+            <div>Location:</div> <div>{newEventsData[activeItem].getLocation()}</div>
             </div>
             <div className="popup-info-holder">
-            <div>Description:</div> <div>{data[activeItem].getDescription()} </div>
+            <div>Description:</div> <div>{newEventsData[activeItem].getDescription()} </div>
             </div>
             <div className="popup-info-holder">
-            <div>Club:</div> <div>{data[activeItem].getClub()} </div>
+            <div>Club:</div> <div>{newEventsData[activeItem].getClub()} </div>
             </div>
             <div className="popup-info-holder">
-            <div>Duration:</div> <div>{data[activeItem].getDuration()} minutes </div>
+            <div>Duration:</div> <div>{newEventsData[activeItem].getDuration()} minutes </div>
             </div>
             <div className="popup-info-holder">
-            <div>Available Quota:</div> <div>{data[activeItem].getQuota()} left </div>
+            <div>Available Quota:</div> <div>{newEventsData[activeItem].getQuota()} left </div>
             </div>
             <div className="popup-info-holder">
-            <div>Time:</div> <div>{data[activeItem].getTimeRequested()}  </div>
+            <div>Time:</div> <div>{newEventsData[activeItem].getTimeRequested()}  </div>
             </div>
             <div className="popup-info-holder">
-            <div>Date:</div> <div>{data[activeItem].getDateRequested()}  </div>
+            <div>Date:</div> <div>{newEventsData[activeItem].getDateRequested()}  </div>
             </div>
           </div>
           </Modal.Body>
