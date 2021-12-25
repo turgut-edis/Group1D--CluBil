@@ -1,7 +1,7 @@
 import User from "./User";
 
 class Club extends User{
-    constructor(id, cname, description, clubAdvisor){
+    constructor(id, cname, description, clubAdvisor, budget){
         super(id, false);
         this._members = [];
         this._events = [];
@@ -10,6 +10,11 @@ class Club extends User{
         this._description = description;
         this._clubTags = [];
         this._clubAdvisor = clubAdvisor;
+        this._budget = budget;
+    }
+
+    getBudget() {
+        return this._budget;
     }
 
     getDescription() {
@@ -76,7 +81,9 @@ class Club extends User{
         this._eventRequests = requests;
     }
 
-    
+    setBudget(budget) {
+        this._budget = budget;
+    }
 
     getClubAdvisor() {
         return this._clubAdvisor;

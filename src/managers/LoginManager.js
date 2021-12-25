@@ -1,4 +1,5 @@
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import check from "./Manager";
 
 class LoginManager {
@@ -15,7 +16,7 @@ class LoginManager {
 
     async login(credential, passwordEntered) {
         try {
-            await signInWithEmailAndPassword(getAuth(), credential, passwordEntered);
+            await signInWithEmailAndPassword(auth, credential, passwordEntered);
             return true;
         } catch (err) {
             console.error(err);
