@@ -147,26 +147,41 @@ export default function Clubs () {
         <Modal.Body>
         <div className="popup-info-container">
             <div className="popup-info-holder">
-            <div>Location:</div> <div>data</div>
+            <div>Club Name:</div> <div>data</div>
             </div>
             <div className="popup-info-holder">
-            <div>Description:</div> <div>data</div>
+            <div>Upcoming Events</div> <div>data</div>
             </div>
-            <div className="popup-info-holder">
-            <div>Club:</div> <div>data</div>
-            </div>
-            <div className="popup-info-holder">
-            <div>Duration:</div> <div>data</div>
-            </div>
-            <div className="popup-info-holder">
-            <div>Available Quota:</div> <div>data</div>
-            </div>
-            <div className="popup-info-holder">
-            <div>Time:</div> <div>data</div>
-            </div>
-            <div className="popup-info-holder">
-            <div>Date:</div> <div>data</div>
-            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </Modal.Body>
         <Modal.Footer>

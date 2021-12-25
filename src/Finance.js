@@ -159,7 +159,14 @@ export default function Finance () {
             })}
             
         </tbody>
+        
             </table>
+            <button type="button" class="btn btn-primary add-event-budget-button">
+         Add Event
+       </button>
+       <button type="button" class="btn btn-primary">
+         Change Budget Request
+       </button>
        </div>
        </>
     );
