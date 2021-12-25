@@ -36,14 +36,17 @@ function FirstPage() {
     }
 
     const joinEventHandler = async (eventId, studentMail) => {
-        await Manage("event").addStudentToEvent(eventId, studentMail)
-        await Manage("student").addJoinedEvent(studentMail, eventId)
-        setJoined(true)
+       setJoined(true)
+       await Manage("student").addJoinedEvent(studentMail, eventId)
+      await Manage("event").addStudentToEvent(eventId, studentMail)
+        
+        
     }
 
     const leaveEventHandler = async (eventId, studentMail) => {
-      await Manage("student").removeJoinedEvent(studentMail, eventId)
       setJoined(false)
+      await Manage("student").removeJoinedEvent(studentMail, eventId)
+      
     }
 
     const fetchUsername = async () => {
@@ -93,7 +96,7 @@ function FirstPage() {
     setActiveItem(item)
     
     //
-    let eventId = item.toString()
+    let eventId = (item + 1).toString()
     console.log('itenm', eventId)
     console.log('events', registeredEvents)
 
