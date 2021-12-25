@@ -3,11 +3,18 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
+import { Button} from 'react-bootstrap';
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
 import "./app.css"
 //ToDo::
 //Ergun
 
 function FirstPage() {
+  
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
@@ -46,6 +53,10 @@ function FirstPage() {
     console.log("Your name is {name}")
     console.log("You're in EventList Page")
     const [noOfRows, setNoOfRows] = useState(1);
+    const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
     
 
   return (
@@ -123,6 +134,7 @@ function FirstPage() {
             <th scope="col">Time Block</th>
             <th scope="col">Details</th>
             
+            
           </tr>
         </thead>
         <tbody>
@@ -135,7 +147,22 @@ function FirstPage() {
                 <td>ACM</td>
                 <td>27.12.2021</td>
                 <td>18.00-20.00</td>
-                <button type="button" class="btn btn-outline-secondary">Show More</button>
+                <Button variant="primary" size="sm" onClick={handleShow}>
+        Show More
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
               </tr>
                 );
             })}
