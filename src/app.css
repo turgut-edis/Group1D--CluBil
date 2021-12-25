@@ -221,8 +221,12 @@ a {
   background-color: darkred;
 }
 
-.navbar-custom-sacadmin {
+.navbar-custom-advisor {
   background-color: green;
+}
+
+.navbar-custom-clubmanager {
+  background-color: navy;
 }
 
 .logout-button {
@@ -305,6 +309,7 @@ a {
   justify-content: space-between;
   align-items: stretch;
   text-align: start;
+  margin-bottom: 10px;
 }
 
 .popup-info-container {
@@ -319,4 +324,11 @@ a {
 .fc-event-main-frame {
     background-color: red;
     cursor: pointer;
+}
+.decline-delete {
+  margin-left: 10px;
+}
+
+.admin-set-budget-button {
+  margin-right: 10px;
 }

@@ -14,9 +14,12 @@ export default function Finance () {
     const history = useNavigate();
     const [noOfRows, setNoOfRows] = useState(1);
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
 
   const handleClose = () => setShow(false);
+  const handleClose2 = () => setShow2(false);
   const handleShow = () => setShow(true);
+  const handleShow2 = () => setShow2(true);
 
     const fetchUsername = async () => {
       try {
@@ -45,7 +48,7 @@ export default function Finance () {
 
     return(
       <>
-      <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+      <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-clubmanager">
  
   <div class="container-fluid">
     <button
@@ -73,13 +76,13 @@ export default function Finance () {
      
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/first">Event List</a>
+          <a class="nav-link" href="/eventlistclub">Event List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/calendar">Calendar</a>
+          <a class="nav-link" href="/calendarclub">Calendar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/clubs">Clubs</a>
+          <a class="nav-link" href="/clubsclub">Clubs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/finance">Finance</a>
@@ -140,18 +143,68 @@ export default function Finance () {
                     </Button>
                     </center>
                 </div>
-                
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Club Details</Modal.Title>
+          <Modal.Title>Add Event</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Bruh we gotta make this a class too</Modal.Body>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>Event Name:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Budget:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Spent:</div>
+            <input type="text" name="name"/>
+            </div>
+            
+          </div>
+        </Modal.Body>
         <Modal.Footer>
+          <Button variant="primary">
+            Set Budget
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>Manage Budget</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+            <div className="popup-info-holder">
+            <div>Club Name:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Current Monthly Budget:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>New Monthly Budget:</div>
+            <input type="text" name="name" />
+            </div>
+            <div className="popup-info-holder">
+            <div>Reason:</div>
+            <input type="text" name="name"/>
+            </div>
+            
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            Set Budget
+          </Button>
+          <Button variant="secondary" onClick={handleClose2}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
               </tr>
@@ -161,10 +214,10 @@ export default function Finance () {
         </tbody>
         
             </table>
-            <button type="button" class="btn btn-primary add-event-budget-button">
+            <button type="button" class="btn btn-primary add-event-budget-button" onClick={handleShow}>
          Add Event
        </button>
-       <button type="button" class="btn btn-primary">
+       <button type="button" class="btn btn-primary" onClick={handleShow2}>
          Change Budget Request
        </button>
        </div>

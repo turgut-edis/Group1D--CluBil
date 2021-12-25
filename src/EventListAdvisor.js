@@ -18,13 +18,13 @@ function FirstPage() {
   
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
-    const [studentEmail, setStudentEmail] = useState("")
     const [role, setRole] = useState("");
     const [data, setData]= useState();
     const [activeItem, setActiveItem] = useState(0);
-    const [currentEventJoined, setJoined] = useState(false)
-    const [registeredEvents, setRegisteredEvent] = useState([])
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
     
     const [noOfRows, setNoOfRows] = useState(1);
     const history = useNavigate();
@@ -33,20 +33,6 @@ function FirstPage() {
       var b = await Manage("event").getAllEvents()
       setData(b)
       setNoOfRows(b)
-    }
-
-    const joinEventHandler = async (eventId, studentMail) => {
-       setJoined(true)
-       await Manage("student").addJoinedEvent(studentMail, eventId)
-        
-    }
-
-    const leaveEventHandler = async (eventId, studentMail) => {
-      console.log("leave", studentMail, eventId)
-      let id = eventId.toString();
-      setJoined(false)
-      await Manage("student").removeJoinedEvent(studentMail, "1")
-      
     }
 
     const fetchUsername = async () => {
@@ -63,8 +49,6 @@ function FirstPage() {
             }
 
             setName(data.name);
-            setStudentEmail(docRef.id)
-            setRegisteredEvent(data.registeredEvents)
 
         } catch(err) {
             console.log(err);
@@ -86,28 +70,6 @@ function FirstPage() {
     if(data != null)
       console.log(data[0].getDescription())
     
-    const [show, setShow] = useState(false);
-
-  const handleClose = () => {
-    setShow(false);
-    setJoined(false)
-  }
-  const handleShow = (item) => {
-    setActiveItem(item)
-    
-    //
-    let eventId = (item + 1).toString()
-    console.log('itenm', eventId)
-    console.log('events', registeredEvents)
-
-    registeredEvents.forEach((event) => {
-      if(eventId == event) {
-        
-        setJoined(true)
-      }
-    })
-    setShow(true);
-  }
     
   if(data == null) {
     return <div>loading...</div>
@@ -116,7 +78,7 @@ function FirstPage() {
   return (
       <>
 
-<nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-sm navbar-dark navbar-custom-advisor">
  
   <div class="container-fluid">
     <button
@@ -144,13 +106,13 @@ function FirstPage() {
      
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/first">Event List</a>
+          <a class="nav-link" href="/eventlistadvisor">Event List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/calendar">Calendar</a>
+          <a class="nav-link" href="/clubsclub">Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/clubs">Clubs</a>
+          <a class="nav-link" href="/finance">Finance</a>
         </li>
       </ul>
 
@@ -239,16 +201,6 @@ function FirstPage() {
             <div>Date:</div> <div>{data[activeItem].getDateRequested()}  </div>
             </div>
           </div>
-          { currentEventJoined ?
-          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler(studentEmail, data[activeItem].getId() )}>
-            Leave Event
-          </Button>)
-          :
-          (<Button variant="success" size="sm" onClick={() => joinEventHandler(data[activeItem].getId(), studentEmail)}>
-          Join Event
-        </Button>)
-
-          }
           </Modal.Body>
         <Modal.Footer>
          

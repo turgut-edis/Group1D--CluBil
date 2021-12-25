@@ -11,9 +11,13 @@ import Clubs from './Clubs';
 import ClubManagerPage from './ClubManagerPage';
 import Finance from './Finance';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SACAdmin from './SACAdmin';
+import EventListAdvisor from './EventListAdvisor';
 import ManageProfiles from './ManageProfiles';
 import UserProfilePage from './UserProfilePage';
+import ManageClubs from './ManageClubs';
+import EventListClub from './EventListClub';
+import CalendarClub from './CalendarClub';
+import ClubsClub from './ClubsClub';
 
 function Routtes() {
   return (
@@ -26,11 +30,15 @@ function Routtes() {
       <Route path="admin" element={<AdminPage/>}/>
       <Route path="calendar" element={<Calendar/>}/>
       <Route path="clubs" element={<Clubs />}/>
-      <Route path="sacadmin" element={<SACAdmin/>}/>
       <Route path="clubmanager" element={<ClubManagerPage/>}/>
       <Route path="userprofilepage" element={<UserProfilePage/>}/>
       <Route path="finance" element={<Finance/>}/>
       <Route path="manageprofiles" element={<ManageProfiles/>}/>
+      <Route path="manageclubs" element={<ManageClubs/>}/>
+      <Route path="eventlistclub" element={<EventListClub/>}/>
+      <Route path="calendarclub" element={<CalendarClub/>}/>
+      <Route path="clubsclub" element={<ClubsClub/>}/>
+      <Route path="eventlistadvisor" element={<EventListAdvisor/>}/>
     </Routes>
    </BrowserRouter>
   );

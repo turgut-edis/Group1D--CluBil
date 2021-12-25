@@ -49,9 +49,12 @@ const Login = () => {
         else if(type === "admin") { // bu sac admin olacak
           history("/admin");
         } else if(type === "advisor"){ // bu advisor olacak
-          history("/clubAdvisor");
+          history("/eventlistadvisor");
         } 
-        else{
+        else if (type === "club") {
+          history("/eventlistclub");
+        }
+        else {
           console.log(type);
         }
       

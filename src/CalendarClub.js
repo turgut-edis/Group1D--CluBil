@@ -6,15 +6,11 @@ import { auth, db, logout } from "./firebase";
 import "./app.css"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import Manage from "./managers/ManagerFacade";
 
 export default function Calendar (){
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
-    const [eventData, setEventData] = useState()
-    const [registeredEvents, setRegisteredEvent] = useState([])
-    const [newEventsData, setNewData] = useState([])
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -30,48 +26,50 @@ export default function Calendar (){
           console.log("No such document!");
         }
 
-        setRegisteredEvent(data.registeredEvents)
+        setName(data.name);
+        setRole(data.type);
       } catch (err) {
         console.log(err);
         alert("Fetch error");
       }
     };
 
-    const fetchEventData = async () => {
-      var b = await Manage("event").getAllEvents()
-      setEventData(b)
-    }
-
-    useEffect(async () => {
+    useEffect(() => {
       if(loading) return;
       if (!user) return history("/");
-      console.log("business")
-      await fetchEventData()
-      await fetchUsername()
-      
     }, [user]);
-    
     const events = [
+      { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
       {
         title: "Long Event",
-        start: getDate("2021-12-13"),
-        end: getDate("2021-12-13")
+        start: getDate("YEAR-MONTH-07"),
+        end: getDate("YEAR-MONTH-10")
       },
       {
-        title: "Long Event",
-        start: getDate("2021-12-15"),
-        end: getDate("2021-12-15")
+        groupId: "999",
+        title: "Repeating Event",
+        start: getDate("YEAR-MONTH-09T16:00:00+00:00")
       },
       {
-        title: "Long Event",
-        start: getDate("2021-12-17"),
-        end: getDate("2021-12-17")
+        groupId: "999",
+        title: "Repeating Event",
+        start: getDate("YEAR-MONTH-16T16:00:00+00:00")
       },
       {
-        title: "Long Event",
-        start: getDate("2021-12-19"),
-        end: getDate("2021-12-19")
+        title: "Conference",
+        start: "YEAR-MONTH-17",
+        end: getDate("YEAR-MONTH-19")
       },
+      {
+        title: "Meeting",
+        start: getDate("YEAR-MONTH-18T10:30:00+00:00"),
+        end: getDate("YEAR-MONTH-18T12:30:00+00:00")
+      },
+      { title: "Lunch", start: getDate("YEAR-MONTH-18T12:00:00+00:00") },
+      { title: "Birthday Party", start: getDate("YEAR-MONTH-19T07:00:00+00:00") },
+      { title: "Meeting", start: getDate("YEAR-MONTH-18T14:30:00+00:00") },
+      { title: "Happy Hour", start: getDate("YEAR-MONTH-18T17:30:00+00:00") },
+      { title: "Dinner", start: getDate("YEAR-MONTH-18T20:00:00+00:00") }
     ];
     
     function getDate(dayString) {
@@ -85,32 +83,12 @@ export default function Calendar (){
     
       return dayString.replace("YEAR", year).replace("MONTH", month);
     }
-    console.log(eventData)
-
-   
-
-    if(eventData == null) {
-      return <div>loading...</div>
-    }
-    if(newEventsData.length == 0)
-    {
-    eventData.forEach(element => {
-          console.log(element)
-          if(element.getParticipants().indexOf(user.email) > -1) {
-                setNewData(newEventsData => [...newEventsData, {
-                  title: element.getName(),
-                  start: getDate("2021-12-19"),
-                  end: getDate("2021-12-19")
-                }]
-                )
-      
-      }});
-    }
-      console.log(newEventsData)
+    console.log("You're logged in as {role}")
+    console.log("Your name is {name}")
     return (
       
       <div>
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-clubmanager">
           <div class="container-fluid">
             <button
               class="navbar-toggler"
@@ -136,21 +114,18 @@ export default function Calendar (){
 
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="/first">
-                    Event List
-                  </a>
+                <a class="nav-link" href="/eventlistclub">Event List</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/calendar">
-                    Calendar
-                  </a>
+                <a class="nav-link" href="/calendarclub">Calendar</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/clubs">
-                    Clubs
-                  </a>
+                <a class="nav-link" href="/clubsclub">Clubs</a>
                 </li>
-              </ul>
+                <li class="nav-item">
+                <a class="nav-link" href="/finance">Finance</a>
+                </li>
+            </ul>
             </div>
 
             <div class="d-flex align-items-center">
@@ -181,10 +156,9 @@ export default function Calendar (){
         }}
         themeSystem="Simplex"
         plugins={[dayGridPlugin]}
-        events={newEventsData}
+        events={events}
         displayEventEnd="true"
-        eventColor={"blue"}
-        eventClick={() => console.log("press!")}
+        eventColor={"#9932cc"}
       />
       </div>
       

@@ -7,13 +7,15 @@ import { Button} from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
 import "./app.css"
 
-export default function ManageProfiles () {
+export default function Clubs () {
   const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
     const [noOfRows, setNoOfRows] = useState(1);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -38,12 +40,13 @@ export default function ManageProfiles () {
     };
 
     useEffect(() => {
-        if(loading) return;
-      }, [loading]);
+      if(loading) return;
+      if (!user) return history("/");
+    }, [user]);
 
     return(
       <>
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-admin">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-clubmanager">
  
   <div class="container-fluid">
     <button
@@ -71,15 +74,19 @@ export default function ManageProfiles () {
      
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="/admin">Manage Events</a>
+                <a class="nav-link" href="/eventlistclub">Event List</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/manageclubs">Manage Clubs</a>
+                <a class="nav-link" href="/calendarclub">Calendar</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/manageprofiles">Manage Profiles</a>
+                <a class="nav-link" href="/clubsclub">Clubs</a>
                 </li>
-              </ul>
+                <li class="nav-item">
+                <a class="nav-link" href="/finance">Finance</a>
+                </li>
+            </ul>
+
     </div>
     
 
@@ -108,9 +115,9 @@ export default function ManageProfiles () {
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Profile Name</center></th>
-            <th scope="col"><center>ID</center></th>
-            <th scope="col"><center>Operations</center></th>
+            <th scope="col"><center>Code</center></th>
+            <th scope="col"><center>Name</center></th>
+            <th scope="col"><center>Operation</center></th>
             
             
           </tr>
@@ -122,18 +129,67 @@ export default function ManageProfiles () {
               
                 <tr>
                 <th scope="row">{index}</th>
-                <td><center>Kaan Özaltan</center></td>
-                <td><center>21902695</center></td>
+                <td><center>ACM</center></td>
+                <td><center>ACM Bilkent Student Chapter</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" size="sm" >
-                    Delete (add onclick)
+                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    Show More
                     </Button>
                     </center>
                 </div>
                 
 
-      
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Club Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+            <div className="popup-info-holder">
+            <div>Club Name:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Upcoming Events</div> <div>data</div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
               </tr>
                 );
             })}

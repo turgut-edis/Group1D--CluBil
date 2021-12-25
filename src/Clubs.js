@@ -82,9 +82,6 @@ export default function Clubs () {
         <li class="nav-item">
           <a class="nav-link" href="/clubs">Clubs</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/finance">Finance</a>
-        </li>
       </ul>
 
     </div>
@@ -115,9 +112,9 @@ export default function Clubs () {
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Club Code</center></th>
-            <th scope="col"><center>Club Name</center></th>
-            <th scope="col"><center>Operations</center></th>
+            <th scope="col"><center>Code</center></th>
+            <th scope="col"><center>Name</center></th>
+            <th scope="col"><center>Operation</center></th>
             
             
           </tr>

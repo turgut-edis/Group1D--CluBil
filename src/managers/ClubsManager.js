@@ -1,6 +1,6 @@
 import Club from "../objects/Club";
 import check from "./Manager";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import { collection, deleteDoc, doc, setDoc, addDoc, getDoc, updateDoc } from "firebase/firestore/lite";
 import { clubConverter, eventRequestConverter } from "../helpers/Converters";
 import EventRequest from "../objects/EventRequest";
@@ -84,7 +84,14 @@ class ClubsManager {
       }
     }
 
-    changeClubInformation (){}
+    async changeClubInformation(clubInfo) {
+      const club = auth.currentUser.email;
+      const clubRef = doc(db, 'users', club).withConverter(clubConverter);
+      const clubDoc = await getDoc(clubRef);
+      const clubData = clubDoc.data();
+      clubData.setDescription(clubInfo);
+      await setDoc(clubRef, clubData);
+    }
     
     async addEventRequest (dateRequested, timeRequested, location, nname, club, quota, clubAdvisor, description, duration, advisorReview, confirmed, isOpen){
       const eventRequest = new EventRequest(0, dateRequested, timeRequested, location, nname, club, quota, clubAdvisor, description, duration, advisorReview, confirmed, isOpen);
