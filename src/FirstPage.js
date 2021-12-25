@@ -41,7 +41,7 @@ function FirstPage() {
     useEffect(() => {
         if (loading) return;
         if (!user) return history("/", {replace: true});
-        fetchUsername();
+        //fetchUsername();
     }, [user, loading]);
     
 
