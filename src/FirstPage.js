@@ -42,6 +42,10 @@ function FirstPage() {
         if (!user) return history("/", {replace: true});
         fetchUsername();
     }, [user, loading]);
+    console.log("You're logged in as {role}")
+    console.log("Your name is {name}")
+    console.log("You're in EventList Page")
+    const [noOfRows, setNoOfRows] = useState(1);
     
 
   return (
@@ -108,9 +112,37 @@ function FirstPage() {
     
   </div>
 </nav>
-    <div>You're logged in as {role} </div>
-    <div>Your name is {name}</div>
-    <div>You're in EventList Page</div>
+<div className="app container p-5">
+      <table class="table table-hover table-bordered p-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Event Name</th>
+            <th scope="col">Club</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time Block</th>
+            <th scope="col">Details</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+        {[...Array(noOfRows)].map((elementInArray, index) => {
+         
+              return (
+                <tr>
+                <th scope="row">{index}</th>
+                <td>Pizza Partisi</td>
+                <td>ACM</td>
+                <td>27.12.2021</td>
+                <td>18.00-20.00</td>
+                <button type="button" class="btn btn-outline-secondary">Show More</button>
+              </tr>
+                );
+            })}
+            
+            </tbody>
+            </table>
+       </div>
         
         </>
   );
