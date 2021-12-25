@@ -19,6 +19,7 @@ import ManageClubs from './ManageClubs';
 import EventListClub from './EventListClub';
 import CalendarClub from './CalendarClub';
 import ClubsClub from './ClubsClub';
+import ClubsAdvisor from './ClubsAdvisor';
 
 function Routtes() {
   return (
@@ -41,6 +42,7 @@ function Routtes() {
       <Route path="clubsclub" element={<ClubsClub/>}/>
       <Route path="eventlistadvisor" element={<EventListAdvisor/>}/>
       <Route path="financeadvisor" element={<FinanceAdvisor/>}/>
+      <Route path="clubsadvisor" element={<ClubsAdvisor/>}/>
     </Routes>
    </BrowserRouter>
   );
