@@ -17,18 +17,19 @@ class EventsManager {
         return EventsManager._eventM;
     }
     
-    async addEvent(id, eventName, eventDate, eventTime, eventDuration, eventDescription, eventQuota, eventLocation, eventClub, eventAdvisor, advisorReview, isOpen){
-        const event = new Event(id, eventDate,eventTime, eventLocation, eventName, eventClub, eventQuota, eventAdvisor, eventDescription, eventDuration, advisorReview, isOpen);
+    
+    async addEvent(eventName, eventDate, eventTime, eventDuration, eventDescription, eventQuota, eventLocation, eventClub, eventAdvisor, advisorReview, isOpen){
+        const event = new Event(eventDate,eventTime, eventLocation, eventName, eventClub, eventQuota, eventAdvisor, eventDescription, eventDuration, advisorReview, isOpen);
         try{
-            const str_id = id.toString()
-            const ref = doc(db,'events', str_id).withConverter(eventConverter);
+            const ref = doc(collection(db,'events')).withConverter(eventConverter);
+            event.setId(ref.id);
             await setDoc(ref, event);
             return true;
         } catch (err) {
             console.error(err);
             alert(err.message);
             return false;
-        }
+    }
 
     }
 
@@ -92,7 +93,15 @@ class EventsManager {
         }
     } 
 
-    declineEventRequest(eventId){}
+    async declineEventRequest(eventId){
+        const eventReqRef = doc(db, 'eventRequests', eventId).withConverter(eventRequestConverter);
+        const docEvent = await getDoc(eventReqRef);
+        if (docEvent.exists()){
+            await deleteDoc(eventReqRef);
+        } else {
+            console.log("No document");
+        }
+    }
     async getAllEvents(){
         var events = []
         const eventRef = await getDocs(collection(db, 'events').withConverter(eventConverter));
