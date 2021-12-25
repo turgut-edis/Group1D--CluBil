@@ -151,11 +151,6 @@ export default function Calendar (){
                     Clubs
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/finance">
-                    Finance
-                  </a>
-                </li>
               </ul>
             </div>
 
