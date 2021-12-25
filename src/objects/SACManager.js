@@ -1,9 +1,9 @@
-import { User } from "./User";
+import User from "./User";
 
 class SACManager extends User {
-    constructor(id, password, currentManagerName, adminPrivelegeAccess = true){
-        super(id, password, adminPrivelegeAccess);
-        this._adminPrivelegeAccess = adminPrivelegeAccess;
+    constructor(id, currentManagerName, adminPrivilegeAccess = true){
+        super(id, adminPrivilegeAccess);
+        this._adminPrivilegeAccess = adminPrivilegeAccess;
         this._currentManagerName = currentManagerName;
     }
 
@@ -16,4 +16,4 @@ class SACManager extends User {
     }
 }
 
-module.exports = {SACManager}
+export default SACManager;

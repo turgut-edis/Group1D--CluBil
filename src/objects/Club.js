@@ -1,5 +1,8 @@
-class Club {
-    constructor(cname, description, clubAdvisor){
+import User from "./User";
+
+class Club extends User{
+    constructor(id, cname, description, clubAdvisor){
+        super(id, false);
         this._members = [];
         this._events = [];
         this._eventRequests = [];
@@ -7,6 +10,14 @@ class Club {
         this._description = description;
         this._clubTags = [];
         this._clubAdvisor = clubAdvisor;
+    }
+
+    getDescription() {
+        return this._description;
+    }
+
+    setDescription(description) {
+        this._description = description;
     }
 
     getMembers() {
@@ -23,6 +34,10 @@ class Club {
 
     addEvent(event) {
         this._events.push(event);
+    }
+
+    setEvents(events) {
+        this._events = events;
     }
 
     getEventRequests() {
@@ -49,6 +64,20 @@ class Club {
         this._clubTags.push(tag);
     }
 
+    setTags(tags) {
+        this._clubTags = tags;
+    }
+
+    setMembers(members) {
+        this._members = members;
+    }
+
+    setEventRequests(requests) {
+        this._eventRequests = requests;
+    }
+
+    
+
     getClubAdvisor() {
         return this._clubAdvisor;
     }
@@ -58,4 +87,4 @@ class Club {
     }
 }
 
-module.exports={Club}
+export default Club;

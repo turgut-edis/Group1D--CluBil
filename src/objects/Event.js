@@ -1,8 +1,8 @@
-const { EventRequest } = require("./EventRequest");
+import EventRequest from './EventRequest';
 
 class Event extends EventRequest {
-    constructor(date, time, location, name, club, clubAdvisor, description, duration, advisorReview){
-        super(date, time, location, name, club, clubAdvisor, description, duration, advisorReview, true);
+    constructor(id, date, time, location, name, club, quota, clubAdvisor, description, duration, advisorReview, isOpen){
+        super(id, date, time, location, name, club, quota, clubAdvisor, description, duration, advisorReview, true, isOpen);
         this._participants = []
     }
 
@@ -15,4 +15,4 @@ class Event extends EventRequest {
     }
 }
 
-module.exports = {Event}
+export default Event;

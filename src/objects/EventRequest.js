@@ -1,16 +1,23 @@
 
 class EventRequest {
-    constructor(dateRequested, timeRequested, location, name, club, clubAdvisor, description, duration, advisorReview, confirmed){
+    constructor(id, dateRequested, timeRequested, location, name, club, quota, clubAdvisor, description, duration, advisorReview, confirmed, isOpen){
+        this._id = id;
         this._dateRequested = new Date(dateRequested+" "+timeRequested+":00");
         this._timeRequested = this.getDateRequested().getHours();
         this._location = location;
         this._club = club;
+        this._quota = quota;
         this._name = name;
         this._description = description;
         this._duration = duration;
         this._advisorReview = advisorReview;
         this._clubAdvisor = clubAdvisor;
         this._confirmed = confirmed;
+        this._isOpen = isOpen;
+    }
+
+    getId() {
+        return this._id;
     }
 
     getDateRequested() {
@@ -27,6 +34,10 @@ class EventRequest {
 
     getClub() {
         return this._club;
+    }
+
+    getQuota(){
+        return this._quota;
     }
 
     getName() {
@@ -53,6 +64,14 @@ class EventRequest {
         return this._confirmed;
     }
 
+    getIsOpen() {
+        return this._isOpen;
+    }
+
+    setId(id) {
+        this._id = id;
+    }
+
     setDateRequested(dateRequested) {
         this._dateRequested = dateRequested;
     }
@@ -71,6 +90,10 @@ class EventRequest {
 
     setName(name) {
         this._name = name;
+    }
+
+    setQuota(quota) {
+        this._quota = quota;
     }
 
     setDescription(description) {
@@ -93,6 +116,10 @@ class EventRequest {
         this._confirmed = confirmed;
     }
 
+    setIsOpen(isOpen) {
+        this._isOpen = isOpen;
+    }
+
 }
 
-module.exports= { EventRequest};
+export default EventRequest;

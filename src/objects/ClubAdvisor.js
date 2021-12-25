@@ -1,8 +1,8 @@
 const { User } = require("./User");
 
 class ClubAdvisor extends User {
-    constructor(id, password, nname, advisingClub){
-        super(id, password, false);
+    constructor(id, nname, advisingClub){
+        super(id, false);
         this._name = nname;
         this._advisingClub = advisingClub;
     }
@@ -24,4 +24,4 @@ class ClubAdvisor extends User {
     }
 }
 
-module.exports={ClubAdvisor}
+export default ClubAdvisor;

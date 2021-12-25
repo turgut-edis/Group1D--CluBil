@@ -1,23 +1,24 @@
 class User {
-    constructor(id, password, adminPrivelegeAccess){
-        this._id = id;
-        this._adminPrivelegeAccess = adminPrivelegeAccess;
+    constructor(email, adminPrivilegeAccess){
+        this._email = email;
+        this._adminPrivilegeAccess = adminPrivilegeAccess;
     }
 
-    getId () {
-        return this._id;
+    getEmail () {
+        return this._email;
     }
 
-    setId(id) {
-        this._id = id;
+    setEmail(email) {
+        this._email = email;
     }
 
     getAccess() {
-        return this._adminPrivelegeAccess;
+        return this._adminPrivilegeAccess;
     }
 
     setAccess(access) {
-        this._adminPrivelegeAccess = access;
+        this._adminPrivilegeAccess = access;
     }
 }
-module.exports = {User}
+
+export default User;

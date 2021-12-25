@@ -1,8 +1,8 @@
-import { User } from "./User";
+import User from "./User";
 
 class Student extends User {
-    constructor(id, password, nname, biography){
-        super(id, password, false);
+    constructor(id, nname, biography){
+        super(id, false);
         this._name = nname;
         this._biography = biography; 
         this._registeredEvents = []
@@ -49,6 +49,18 @@ class Student extends User {
     addTag(tag) {
         this._tags.push(tag);
     }
+
+    setRegisteredEvents(registeredEvents) {
+        this._registeredEvents = registeredEvents;
+    }
+
+    setTags(tags) {
+        this._tags = tags;
+    }
+
+    setJoinedClubs(clubs) {
+        this._joinedClubs = clubs;
+    }
 }
 
-module.exports = {Student}
+export default Student;

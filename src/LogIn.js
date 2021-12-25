@@ -37,7 +37,6 @@ const Login = () => {
         alert("Fetch error");
     }
   }
-
   useEffect(  () => {
     if (loading) {
       //Loading Screen
