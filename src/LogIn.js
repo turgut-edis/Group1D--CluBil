@@ -47,13 +47,13 @@ const Login = () => {
        fetchUsername()
        console.log("type.." ,type)
 
-        if(type === "Student") 
+        if(type === "student") 
         {
           history("/first", { replace: true });
         }
-        else if(type === "adminrolu") { // bu sac admin olacak
+        else if(type === "admin") { // bu sac admin olacak
           history("/admin", { replace: true });
-        } else if(type === "clubAdvisor"){ // bu advisor olacak
+        } else if(type === "advisor"){ // bu advisor olacak
           history("/clubAdvisor", { replace: true });
         } 
         else{
