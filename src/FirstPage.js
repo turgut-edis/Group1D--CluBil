@@ -38,8 +38,6 @@ function FirstPage() {
     const joinEventHandler = async (eventId, studentMail) => {
        setJoined(true)
        await Manage("student").addJoinedEvent(studentMail, eventId)
-      await Manage("event").addStudentToEvent(eventId, studentMail)
-        
         
     }
 

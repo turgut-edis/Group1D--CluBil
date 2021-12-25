@@ -29,20 +29,8 @@ class EventsManager {
             console.error(err);
             alert(err.message);
             return false;
-    }
-
-    }
-
-    /* async getEvent(eventId){
-        const ref = doc(db, 'events', eventId).withConverter(eventConverter);
-        const docSnap = await getDoc(ref);
-        if (docSnap.exists()){
-            const event = docSnap.data();
-            console.log(event);
-        } else {
-            console.log("No document");
         }
-    } */
+    }
     
     async deleteEvent(eventId){
         try {
@@ -61,8 +49,9 @@ class EventsManager {
             const eventQuota = event.getQuota() - 1;
             const participants = event.getParticipants();
             participants.push(studentMail);
-            await updateDoc(eventRef, { participants: participants });
-            await updateDoc(eventRef, { quota: eventQuota});
+            await updateDoc(eventRef, { participants: participants }).then(() => {
+                updateDoc(eventRef, { quota: eventQuota});
+            });
         } else {
             console.log("No document");
         }
@@ -71,11 +60,13 @@ class EventsManager {
     async removeStudentFromEvent(eventId, studentMail){
         const eventRef = doc(db, 'events', eventId).withConverter(eventConverter);
         const docEvent = await getDoc(eventRef);
+        console.log(docEvent.data())
         if (docEvent.exists()){
             const event = docEvent.data();
             const eventQuota = event.getQuota() + 1;
-            await updateDoc(eventRef, { participants: arrayRemove(studentMail) });
-            await updateDoc(eventRef, { quota: eventQuota});
+            await updateDoc(eventRef, { participants: arrayRemove(studentMail) }).then(() => {
+                updateDoc(eventRef, { quota: eventQuota});
+            });
         } else {
             console.log("No document");
         }
@@ -99,8 +90,9 @@ class EventsManager {
                                         eventRequest.getDuration(), 
                                         eventRequest.getAdvisorReview(),
                                         eventRequest.getIsOpen());
-            await updateDoc(eventReqRef, { confirmed: approve });
-            await setDoc(eventRef, newEvent);
+            await updateDoc(eventReqRef, { confirmed: approve }).then(() => {
+                setDoc(eventRef, newEvent);
+            });
         } else {
             console.log("No document");
         }
