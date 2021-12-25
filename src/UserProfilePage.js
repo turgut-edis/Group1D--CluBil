@@ -25,7 +25,7 @@ function UserProfilePage() {
             const data = docSnap.data();
 
             if (docSnap.exists()) {
-              console.log("Document data:", docSnap.data());
+              //("Document data:", docSnap.data());
             } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -39,7 +39,7 @@ function UserProfilePage() {
             }
             else if(role === "clubAdvisor")
             {
-              console.log(31);
+              //console.log(31);
               setAdvisingClub(data.advisingClub);
             }
             setEmail(user.email);
