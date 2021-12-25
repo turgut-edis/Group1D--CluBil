@@ -29,7 +29,8 @@ export default function Calendar (){
           // doc.data() will be undefined in this case
           console.log("No such document!");
         }
-
+        setName(data.name);
+        setRole(data.type);
         setRegisteredEvent(data.registeredEvents)
       } catch (err) {
         console.log(err);
@@ -44,12 +45,12 @@ export default function Calendar (){
 
     useEffect(async () => {
       if(loading) return;
-      if (!user) return history("/");
+      if (!auth) return history("/");
       console.log("business")
-      await fetchEventData()
       await fetchUsername()
+      await fetchEventData()
       
-    }, [user]);
+    }, [loading, auth]);
     
     const events = [
       {
