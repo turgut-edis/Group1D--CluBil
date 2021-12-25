@@ -15,6 +15,9 @@ import SACAdmin from './SACAdmin';
 import ManageProfiles from './ManageProfiles';
 import UserProfilePage from './UserProfilePage';
 import ManageClubs from './ManageClubs';
+import EventListClub from './EventListClub';
+import CalendarClub from './CalendarClub';
+import ClubsClub from './ClubsClub';
 
 function Routtes() {
   return (
@@ -33,6 +36,9 @@ function Routtes() {
       <Route path="finance" element={<Finance/>}/>
       <Route path="manageprofiles" element={<ManageProfiles/>}/>
       <Route path="manageclubs" element={<ManageClubs/>}/>
+      <Route path="eventlistclub" element={<EventListClub/>}/>
+      <Route path="calendarclub" element={<CalendarClub/>}/>
+      <Route path="clubsclub" element={<ClubsClub/>}/>
     </Routes>
    </BrowserRouter>
   );
