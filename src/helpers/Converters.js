@@ -1,6 +1,7 @@
 import Student from "../objects/Student";
 import Event from "../objects/Event";
 import Club from "../objects/Club";
+import EventRequest from "../objects/EventRequest";
 
 const eventConverter = {
     toFirestore: (event) => {
@@ -10,19 +11,21 @@ const eventConverter = {
             time: event.getTimeRequested(), 
             location: event.getLocation(), 
             nname: event.getName(), 
+            participants: event.getParticipants(),
             club: event.getClub(), 
             quota: event.getQuota(), 
             clubAdvisor: event.getClubAdvisor(), 
             description: event.getDescription(), 
             duration: event.getDuration(), 
             advisorReview: event.getAdvisorReview(),
-            confirmed: event.getConfirmed(),
             isOpen: event.getIsOpen() 
         };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Event(data.id, data.date, data.time, data.location, data.nname, data.club, data.quota, data.advisor, data.description, data.duration, data.advisorReview, data.isOpen)
+        var event =  new Event(data.id, data.date, data.time, data.location, data.nname, data.club, data.quota, data.advisor, data.description, data.duration, data.advisorReview, data.isOpen);
+        event.setParticipants(data.participants);
+        return event;
     }
 };
 
@@ -71,8 +74,33 @@ const clubConverter = {
     }
 };
 
+const eventRequestConverter = {
+    toFirestore: (event) => {
+        return {
+            id: event.getId(),
+            dateRequested: event.getDateRequested(), 
+            timeRequested: event.getTimeRequested(), 
+            location: event.getLocation(), 
+            nname: event.getName(), 
+            club: event.getClub(), 
+            quota: event.getQuota(), 
+            clubAdvisor: event.getClubAdvisor(), 
+            description: event.getDescription(), 
+            duration: event.getDuration(), 
+            advisorReview: event.getAdvisorReview(),
+            confirmed: event.getConfirmed(),
+            isOpen: event.getIsOpen() 
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new EventRequest(data.id, data.dateRequested, data.timeRequested, data.location, data.nname, data.club, data.quota, data.advisor, data.description, data.duration, data.advisorReview, data.confirmed, data.isOpen);
+    }
+};
+
 export {
     eventConverter,
     studentConverter,
-    clubConverter
+    clubConverter,
+    eventRequestConverter
 }

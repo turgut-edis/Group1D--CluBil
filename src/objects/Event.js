@@ -9,6 +9,10 @@ class Event extends EventRequest {
     getParticipants() {
         return this._participants;
     }
+
+    setParticipants(participants) {
+        this._participants = participants;
+    }
     
     addParticipant(participant) {
         this._participants.push(participant);

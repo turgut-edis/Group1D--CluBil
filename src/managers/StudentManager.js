@@ -1,5 +1,5 @@
 import check from "./Manager";
-import { studentConverter, clubConverter } from "../helpers/Converters";
+import { studentConverter, clubConverter, eventConverter } from "../helpers/Converters";
 import { doc, getDoc, arrayUnion, updateDoc, arrayRemove } from "firebase/firestore/lite";
 import { db, auth } from "../firebase";
 import { updatePassword } from "firebase/auth";
@@ -39,12 +39,15 @@ class StudentsManager {
 
   async addJoinedEvent(studentMail, eventId) {
     const sfDocRef = doc(db, 'users', studentMail).withConverter(studentConverter);
-    const sfDocRef1 = doc(db, 'events', eventId);
+    const sfDocRef1 = doc(db, 'events', eventId).withConverter(eventConverter);
     try {
       const docSnap = await getDoc(sfDocRef1);
       if (docSnap.exists()) {
-        const eventQuota = docSnap.data().quota - 1;
-        await updateDoc(sfDocRef1, { quota: eventQuota })
+        const eventQuota = docSnap.data().getQuota() - 1;
+        const participants = docSnap.data().getParticipants();
+        participants.push(studentMail);
+        await updateDoc(sfDocRef1, {participants: participants});
+        await updateDoc(sfDocRef1, { quota: eventQuota });
         await updateDoc(sfDocRef, { registeredEvents: arrayUnion(eventId) })
       }
     } catch (e) {
