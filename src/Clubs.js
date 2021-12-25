@@ -40,10 +40,8 @@ export default function Clubs () {
     };
 
     useEffect(() => {
-      if (loading) return;
       if (!user) return history("/", { replace: true });
-      fetchUsername();
-    }, [user, loading]);
+    }, [user]);
 
     return(
       <>

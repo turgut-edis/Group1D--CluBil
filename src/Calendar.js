@@ -35,10 +35,8 @@ export default function Calendar (){
     };
 
     useEffect(() => {
-      if (loading) return;
       if (!user) return history("/", { replace: true });
-      fetchUsername();
-    }, [user, loading]);
+    }, [user]);
     const events = [
       { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
       {

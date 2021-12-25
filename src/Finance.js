@@ -33,10 +33,8 @@ export default function Finance () {
     };
 
     useEffect(() => {
-      if (loading) return;
       if (!user) return history("/", { replace: true });
-      fetchUsername();
-    }, [user, loading]);
+    }, [user]);
 
     return(
       <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">

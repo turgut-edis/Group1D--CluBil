@@ -38,11 +38,6 @@ const Login = () => {
     }
   }
   useEffect(  () => {
-    if (loading) {
-      //Loading Screen
-      return;
-    }
-    
     if (user) {
        fetchUsername()
        console.log("type.." ,type)
@@ -61,7 +56,7 @@ const Login = () => {
         }
       
     }
-  }, [loading, user, history, type]);
+  }, [user, history, type]);
 
   return (
     <div class="login-wrap-2" >

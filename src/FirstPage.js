@@ -46,7 +46,6 @@ function FirstPage() {
 
     useEffect(() => {
         if (!user) return history("/", {replace: true});
-        //fetchUsername();
     }, [user]);
     console.log("You're logged in as {role}")
     console.log("Your name is {name}")
