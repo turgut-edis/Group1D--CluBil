@@ -104,7 +104,7 @@ export default function Calendar (){
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <a class="navbar-brand mt-2 mt-lg-0" href="/first">
+              <a class="navbar-brand mt-2 mt-lg-0" href="#">
                 <img
                   src="https://w3.bilkent.edu.tr/logo/ing-amblem.png"
                   height="35"
@@ -139,6 +139,7 @@ export default function Calendar (){
 
             <div class="d-flex align-items-center">
             <div class="navbar-text username-css">{name}</div>
+              <a href="https://clubil.web.app/userprofilepage">
               <img
                 src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
                 class="rounded-circle"
@@ -146,6 +147,7 @@ export default function Calendar (){
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
               />
+              </a>
               <button type="button" class="btn btn-primary logout-button" onClick={logout}>
                 Logout
               </button>

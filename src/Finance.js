@@ -20,7 +20,7 @@ export default function Finance () {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
-      <a class="navbar-brand mt-2 mt-lg-0" href="/first">
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
         <img
           src="https://w3.bilkent.edu.tr/logo/ing-amblem.png"
           height="35"
@@ -39,6 +39,9 @@ export default function Finance () {
         <li class="nav-item">
           <a class="nav-link" href="/clubs">Clubs</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/finance">Finance</a>
+        </li>
       </ul>
 
     </div>
@@ -47,6 +50,7 @@ export default function Finance () {
    
     <div class="d-flex align-items-center">
     <div class="navbar-text username-css">name should be here</div>
+        <a href="https://clubil.web.app/userprofilepage">
           <img
           src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
           class="rounded-circle"
@@ -54,6 +58,7 @@ export default function Finance () {
           alt="Black and White Portrait of a Man"
           loading="lazy"
         />
+        </a>
         <button type="button" class="btn btn-primary logout-button" onClick={logout}>Logout</button>
         
       
