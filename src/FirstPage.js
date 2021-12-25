@@ -147,7 +147,7 @@ function FirstPage() {
                 <td>ACM</td>
                 <td>27.12.2021</td>
                 <td>18.00-20.00</td>
-                <Button variant="primary" size="sm" onClick={handleShow}>
+                <Button variant="outline-primary" size="sm" onClick={handleShow}>
         Show More
       </Button>
 
