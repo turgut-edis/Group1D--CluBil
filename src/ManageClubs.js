@@ -40,9 +40,12 @@ export default function ManageClubs () {
       }
     };
 
-    useEffect(() => {
+    useEffect(async() => {
         if(loading) return;
-      }, [loading]);
+        if (!user) return history("/");
+        await fetchUsername()
+
+      }, [user, loading]);
 
     return(
       <>

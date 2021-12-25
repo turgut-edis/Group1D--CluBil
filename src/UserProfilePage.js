@@ -9,7 +9,7 @@ import { type } from "@testing-library/user-event/dist/type";
 //Taha
 
 function UserProfilePage() {
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("student");
     const [joinedClubs, setJoinedClubs] = useState("");
@@ -50,10 +50,12 @@ function UserProfilePage() {
             alert("Fetch error");
         }
     }
-   // fetchUsername()
-    useEffect(() => {
-        if (!auth) return history("/");
-    }, [auth]);
+   
+    useEffect(async() => {
+      if(loading) return;
+      if (!auth) return history("/");
+      await fetchUsername()
+    }, [auth, loading]);
     
 
   if(role === "student")

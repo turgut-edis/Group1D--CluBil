@@ -39,9 +39,11 @@ export default function AdminPage () {
       }
     };
 
-    useEffect(() => {
+    useEffect(async() => {
       if(loading) return;
-    }, [loading]);
+      if (!user) return history("/");
+      await fetchUsername()
+    }, [user, loading]);
 
     return (
       <div>

@@ -7,7 +7,7 @@ import "./app.css"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-export default function Calendar (){
+export default function CalendarClub (){
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
@@ -34,10 +34,12 @@ export default function Calendar (){
       }
     };
 
-    useEffect(() => {
+    useEffect(async() => {
       if(loading) return;
       if (!user) return history("/");
-    }, [user]);
+      await fetchUsername()
+
+    }, [user, loading]);
     const events = [
       { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
       {
@@ -83,8 +85,8 @@ export default function Calendar (){
     
       return dayString.replace("YEAR", year).replace("MONTH", month);
     }
-    console.log("You're logged in as {role}")
-    console.log("Your name is {name}")
+    console.log("You're logged in as ", {role})
+    console.log("Your name is ", {name})
     return (
       
       <div>

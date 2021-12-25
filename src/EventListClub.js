@@ -14,7 +14,7 @@ import UserProfilePage from "./UserProfilePage";
 import Manage from "./managers/ManagerFacade";
 
 
-function FirstPage() {
+function EventListClub() {
   
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
@@ -22,9 +22,8 @@ function FirstPage() {
     const [data, setData]= useState();
     const [activeItem, setActiveItem] = useState(0);
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const [currentEventJoined, setJoined] = useState(false)
+    const [registeredEvents, setRegisteredEvent] = useState([])
     
     const [noOfRows, setNoOfRows] = useState(1);
     const history = useNavigate();
@@ -70,6 +69,26 @@ function FirstPage() {
     if(data != null)
       console.log(data[0].getDescription())
     
+      const handleClose = () => {
+        setShow(false);
+        setJoined(false)
+      }
+  const handleShow = (item) => {
+        setActiveItem(item)
+        
+        //
+        let eventId = (item + 1).toString()
+        console.log('itenm', eventId)
+        console.log('events', registeredEvents)
+    
+        registeredEvents.forEach((event) => {
+          if(eventId == event) {
+            
+            setJoined(true)
+          }
+        })
+        setShow(true);
+      }
     
   if(data == null) {
     return <div>loading...</div>
@@ -220,4 +239,4 @@ function FirstPage() {
         </>
   );
 }
-export default FirstPage;
+export default EventListClub;

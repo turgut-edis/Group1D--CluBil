@@ -39,10 +39,12 @@ export default function Clubs () {
       }
     };
 
-    useEffect(() => {
+    useEffect(async() => {
       if(loading) return;
       if (!user) return history("/");
-    }, [user]);
+      await fetchUsername()
+
+    }, [user, loading]);
 
     return(
       <>
