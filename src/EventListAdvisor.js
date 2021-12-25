@@ -131,7 +131,7 @@ function EventListAdvisor() {
           <a class="nav-link" href="/clubsclub">Clubs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/finance">Finance</a>
+          <a class="nav-link" href="/financeadvisor">Finance</a>
         </li>
       </ul>
 

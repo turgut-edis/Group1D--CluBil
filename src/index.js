@@ -10,6 +10,7 @@ import AdminPage from './AdminPage';
 import Clubs from './Clubs';
 import ClubManagerPage from './ClubManagerPage';
 import Finance from './Finance';
+import FinanceAdvisor from './FinanceAdvisor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventListAdvisor from './EventListAdvisor';
 import ManageProfiles from './ManageProfiles';
@@ -39,6 +40,7 @@ function Routtes() {
       <Route path="calendarclub" element={<CalendarClub/>}/>
       <Route path="clubsclub" element={<ClubsClub/>}/>
       <Route path="eventlistadvisor" element={<EventListAdvisor/>}/>
+      <Route path="financeadvisor" element={<FinanceAdvisor/>}/>
     </Routes>
    </BrowserRouter>
   );
