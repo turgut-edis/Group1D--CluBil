@@ -7,15 +7,13 @@ import { Button} from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
 import "./app.css"
 
-export default function Clubs () {
+export default function ManageProfiles () {
   const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
     const [noOfRows, setNoOfRows] = useState(1);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -116,8 +114,8 @@ export default function Clubs () {
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Club Code</center></th>
-            <th scope="col"><center>Club Name</center></th>
+            <th scope="col"><center>Profile Name</center></th>
+            <th scope="col"><center>ID</center></th>
             <th scope="col"><center>Operations</center></th>
             
             
@@ -130,29 +128,18 @@ export default function Clubs () {
               
                 <tr>
                 <th scope="row">{index}</th>
-                <td><center>ACM</center></td>
-                <td><center>ACM Bilkent Student Chapter</center></td>
+                <td><center>Kaan Özaltan</center></td>
+                <td><center>21902695</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" size="sm" onClick={handleShow}>
-                    Show More
+                    <Button variant="primary" size="sm" >
+                    Delete (add onclick)
                     </Button>
                     </center>
                 </div>
                 
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Club Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Bruh we gotta make this a class too</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          
-        </Modal.Footer>
-      </Modal>
+      
               </tr>
                 );
             })}

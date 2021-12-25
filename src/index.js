@@ -12,6 +12,7 @@ import ClubManagerPage from './ClubManagerPage';
 import Finance from './Finance';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SACAdmin from './SACAdmin';
+import ManageProfiles from './ManageProfiles';
 import UserProfilePage from './UserProfilePage';
 
 function Routtes() {
@@ -29,6 +30,7 @@ function Routtes() {
       <Route path="clubmanager" element={<ClubManagerPage/>}/>
       <Route path="userprofilepage" element={<UserProfilePage/>}/>
       <Route path="finance" element={<Finance/>}/>
+      <Route path="manageprofiles" element={<ManageProfiles/>}/>
     </Routes>
    </BrowserRouter>
   );
