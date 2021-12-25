@@ -144,12 +144,38 @@ export default function Clubs () {
         <Modal.Header closeButton>
           <Modal.Title>Club Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Bruh we gotta make this a class too</Modal.Body>
+        <Modal.Body>
+        <div className="popup-info-container">
+            <div className="popup-info-holder">
+            <div>Location:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Description:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Club:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Duration:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Available Quota:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Time:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Date:</div> <div>data</div>
+            </div>
+          </div>
+        </Modal.Body>
         <Modal.Footer>
+          <Button variant="primary">
+            Join Club
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          
         </Modal.Footer>
       </Modal>
               </tr>
