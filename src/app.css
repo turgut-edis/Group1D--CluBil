@@ -221,8 +221,12 @@ a {
   background-color: darkred;
 }
 
-.navbar-custom-sacadmin {
+.navbar-custom-advisor {
   background-color: green;
+}
+
+.navbar-custom-clubmanager {
+  background-color: navy;
 }
 
 .logout-button {
