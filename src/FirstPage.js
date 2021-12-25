@@ -47,7 +47,7 @@ function FirstPage() {
     useEffect(() => {
         if (!user) return history("/", {replace: true});
         //fetchUsername();
-    }, [user, loading]);
+    }, [user]);
     console.log("You're logged in as {role}")
     console.log("Your name is {name}")
     console.log("You're in EventList Page")
