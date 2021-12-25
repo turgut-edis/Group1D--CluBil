@@ -9,6 +9,7 @@ import Calendar from './Calendar';
 import AdminPage from './AdminPage';
 import Clubs from './Clubs';
 import ClubManagerPage from './ClubManagerPage';
+import Finance from './Finance';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SACAdmin from './SACAdmin';
 import UserProfilePage from './UserProfilePage';
@@ -27,6 +28,7 @@ function Routtes() {
       <Route path="sacadmin" element={<SACAdmin/>}/>
       <Route path="clubmanager" element={<ClubManagerPage/>}/>
       <Route path="userprofilepage" element={<UserProfilePage/>}/>
+      <Route path="finance" element={<Finance/>}/>
     </Routes>
    </BrowserRouter>
   );

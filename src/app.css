@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #ffffff !important;
+  background-color: #e4e6f2 !important;
   font: 600 16px/18px "Open Sans", sans-serif;
 }
 *,
@@ -214,7 +214,7 @@ a {
 }
 
 .navbar-custom {
-  background-color: #9932cc;
+  background-color: darkorchid;
 }
 
 .navbar-custom-admin {
@@ -250,7 +250,6 @@ a {
 .contact-us-collapsible {
   padding: 10px;
 }
-
 .Calendar {
   font-family: sans-serif;
   text-align: center;
