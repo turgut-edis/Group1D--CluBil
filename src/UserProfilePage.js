@@ -148,7 +148,7 @@ function UserProfilePage() {
           </>
     );
   }
-  else if(role === "clubAdvisor")
+  else if(role === "advisor")
   {
     return (
         <>
