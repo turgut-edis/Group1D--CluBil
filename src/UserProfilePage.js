@@ -33,7 +33,7 @@ function UserProfilePage() {
 
             setName(data.name);
             setRole(data.type);
-            if(role === "Student")
+            if(role === "student")
             {
               setJoinedClubs(data.joinedClubs);
             }
@@ -52,10 +52,8 @@ function UserProfilePage() {
     }
 
     useEffect(() => {
-        if (loading) return;
         if (!user) return history("/", {replace: true});
-        fetchUsername();
-    }, [user, loading, role, email, data]);
+    }, [user]);
     
 
   if(role === "student")
