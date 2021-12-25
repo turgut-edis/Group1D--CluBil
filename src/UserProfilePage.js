@@ -58,7 +58,7 @@ function UserProfilePage() {
     }, [user, loading, role, email, data]);
     
 
-  if(role === "Student")
+  if(role === "student")
   {
         return (
         <>
