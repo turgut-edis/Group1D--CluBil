@@ -6,6 +6,38 @@ import { auth, db, logout } from "./firebase";
 import "./app.css"
 
 export default function Clubs () {
+  const [user, loading] = useAuthState(auth);
+    const [name, setName] = useState("");
+    const [role, setRole] = useState("");
+    const history = useNavigate();
+
+    const fetchUsername = async () => {
+      try {
+        const docRef = doc(db, "users", user.email);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+
+        setName(data.name);
+        setRole(data.type);
+      } catch (err) {
+        console.log(err);
+        alert("Fetch error");
+      }
+    };
+
+    useEffect(() => {
+      if (loading) return;
+      if (!user) return history("/", { replace: true });
+      fetchUsername();
+    }, [user, loading]);
+
     return(
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
  
@@ -53,7 +85,7 @@ export default function Clubs () {
 
    
     <div class="d-flex align-items-center">
-    <div class="navbar-text username-css">name should be here</div>
+    <div class="navbar-text username-css">{name}</div>
         <a href="/userprofilepage">
           <img
           src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
