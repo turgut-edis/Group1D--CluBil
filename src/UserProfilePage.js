@@ -11,6 +11,8 @@ function UserProfilePage() {
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [joinedClubs, setJoinedClubs] = useState("");
+    const [email, setEmail] = useState("");
     const [data, setData]= useState();
     const history = useNavigate();
 
@@ -29,7 +31,9 @@ function UserProfilePage() {
 
             setName(data.name);
             setRole(data.type);
-            setData(data)
+            setJoinedClubs(data.joinedClubs);
+            setEmail(user.email);
+            setData(data);
 
         } catch(err) {
             console.log(err);
@@ -93,7 +97,7 @@ function UserProfilePage() {
     <div class="navbar-text username-css">{name}</div>
         <a href="/userprofilepage">
           <img
-          src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
+          src="https://png.pngitem.com/pimgs/s/238-2388363_comment-from-static-noise-profile-picture-vector-hd.png"
           class="rounded-circle"
           height="35"
           alt="Black and White Portrait of a Man"
@@ -109,7 +113,7 @@ function UserProfilePage() {
     </nav>
     <div class="d-flex align-items-center profilepic">
           <img
-          src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
+          src="https://png.pngitem.com/pimgs/s/238-2388363_comment-from-static-noise-profile-picture-vector-hd.png"
           class="rounded-circle"
           max width="200"
           max height="200"
@@ -118,9 +122,9 @@ function UserProfilePage() {
           />
           
           <div class="profileinfo-css"><strong>Full Name:</strong> {name} <br />
-                                     <strong>Mail:</strong> {name} <br />
-                                     <strong>Joined Clubs:</strong> {name} <br />
-                                     <strong>Role:</strong> {name} <br /></div>
+                                     <strong>Mail:</strong> {email} <br />
+                                     <strong>Joined Clubs:</strong> {(joinedClubs + "")} <br />
+                                     <strong>Role:</strong> {role} <br /></div>
     </div>
 
     <div class="nametext"> <strong>{name}</strong> </div>
