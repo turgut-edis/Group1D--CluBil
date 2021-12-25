@@ -59,6 +59,7 @@ class EventsManager {
             const event = docEvent.data();
             const eventQuota = event.getQuota() - 1;
             const participants = event.getParticipants();
+            console.log("participants", participants)
             participants.push(studentMail);
             await updateDoc(eventRef, { participants: participants });
             await updateDoc(eventRef, { quota: eventQuota});
