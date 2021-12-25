@@ -315,3 +315,8 @@ a {
   margin-right: 10px;
   
 }
+
+.fc-event-main-frame {
+    background-color: red;
+    cursor: pointer;
+}

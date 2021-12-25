@@ -44,8 +44,10 @@ function FirstPage() {
     }
 
     const leaveEventHandler = async (eventId, studentMail) => {
+      console.log("leave", studentMail, eventId)
+      let id = eventId.toString();
       setJoined(false)
-      await Manage("student").removeJoinedEvent(studentMail, eventId)
+      await Manage("student").removeJoinedEvent(studentMail, "1")
       
     }
 

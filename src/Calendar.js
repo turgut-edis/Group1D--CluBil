@@ -6,11 +6,15 @@ import { auth, db, logout } from "./firebase";
 import "./app.css"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import Manage from "./managers/ManagerFacade";
 
 export default function Calendar (){
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [eventData, setEventData] = useState()
+    const [registeredEvents, setRegisteredEvent] = useState([])
+    const [newEventsData, setNewData] = useState([])
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -26,50 +30,48 @@ export default function Calendar (){
           console.log("No such document!");
         }
 
-        setName(data.name);
-        setRole(data.type);
+        setRegisteredEvent(data.registeredEvents)
       } catch (err) {
         console.log(err);
         alert("Fetch error");
       }
     };
 
-    useEffect(() => {
+    const fetchEventData = async () => {
+      var b = await Manage("event").getAllEvents()
+      setEventData(b)
+    }
+
+    useEffect(async () => {
       if(loading) return;
       if (!user) return history("/");
+      console.log("business")
+      await fetchEventData()
+      await fetchUsername()
+      
     }, [user]);
+    
     const events = [
-      { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
       {
         title: "Long Event",
-        start: getDate("YEAR-MONTH-07"),
-        end: getDate("YEAR-MONTH-10")
+        start: getDate("2021-12-13"),
+        end: getDate("2021-12-13")
       },
       {
-        groupId: "999",
-        title: "Repeating Event",
-        start: getDate("YEAR-MONTH-09T16:00:00+00:00")
+        title: "Long Event",
+        start: getDate("2021-12-15"),
+        end: getDate("2021-12-15")
       },
       {
-        groupId: "999",
-        title: "Repeating Event",
-        start: getDate("YEAR-MONTH-16T16:00:00+00:00")
+        title: "Long Event",
+        start: getDate("2021-12-17"),
+        end: getDate("2021-12-17")
       },
       {
-        title: "Conference",
-        start: "YEAR-MONTH-17",
-        end: getDate("YEAR-MONTH-19")
+        title: "Long Event",
+        start: getDate("2021-12-19"),
+        end: getDate("2021-12-19")
       },
-      {
-        title: "Meeting",
-        start: getDate("YEAR-MONTH-18T10:30:00+00:00"),
-        end: getDate("YEAR-MONTH-18T12:30:00+00:00")
-      },
-      { title: "Lunch", start: getDate("YEAR-MONTH-18T12:00:00+00:00") },
-      { title: "Birthday Party", start: getDate("YEAR-MONTH-19T07:00:00+00:00") },
-      { title: "Meeting", start: getDate("YEAR-MONTH-18T14:30:00+00:00") },
-      { title: "Happy Hour", start: getDate("YEAR-MONTH-18T17:30:00+00:00") },
-      { title: "Dinner", start: getDate("YEAR-MONTH-18T20:00:00+00:00") }
     ];
     
     function getDate(dayString) {
@@ -83,8 +85,28 @@ export default function Calendar (){
     
       return dayString.replace("YEAR", year).replace("MONTH", month);
     }
-    console.log("You're logged in as {role}")
-    console.log("Your name is {name}")
+    console.log(eventData)
+
+   
+
+    if(eventData == null) {
+      return <div>loading...</div>
+    }
+    if(newEventsData.length == 0)
+    {
+    eventData.forEach(element => {
+          console.log(element)
+          if(element.getParticipants().indexOf(user.email) > -1) {
+                setNewData(newEventsData => [...newEventsData, {
+                  title: element.getName(),
+                  start: getDate("2021-12-19"),
+                  end: getDate("2021-12-19")
+                }]
+                )
+      
+      }});
+    }
+      console.log(newEventsData)
     return (
       
       <div>
@@ -164,9 +186,10 @@ export default function Calendar (){
         }}
         themeSystem="Simplex"
         plugins={[dayGridPlugin]}
-        events={events}
+        events={newEventsData}
         displayEventEnd="true"
-        eventColor={"#9932cc"}
+        eventColor={"blue"}
+        eventClick={() => console.log("press!")}
       />
       </div>
       
