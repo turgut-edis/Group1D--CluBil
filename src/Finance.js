@@ -3,6 +3,8 @@ import { auth, db, logout } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
+import Modal from "react-bootstrap/Modal";
+import { Button} from 'react-bootstrap';
 
 export default function Finance () {
 
@@ -10,6 +12,11 @@ export default function Finance () {
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const history = useNavigate();
+    const [noOfRows, setNoOfRows] = useState(1);
+    const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
     const fetchUsername = async () => {
       try {
@@ -33,11 +40,17 @@ export default function Finance () {
     };
 
     useEffect(() => {
+<<<<<<< HEAD
       if(loading) return;
       if (!user) return history("/");
     }, [user]);
+=======
+      if (!loading) return history("/");
+    }, [loading]);
+>>>>>>> 5ada4ad6d24e3e778fff8acc8426de09d373be7c
 
     return(
+      <>
       <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
  
   <div class="container-fluid">
@@ -101,5 +114,59 @@ export default function Finance () {
     
   </div>
 </nav>
+
+<div className="app container p-5">
+      <table class="table table-hover table-bordered p-5">
+        <thead>
+          <tr>
+            
+            <th scope="col">#</th>
+            <th scope="col"><center>Event Name</center></th>
+            <th scope="col"><center>Budget</center></th>
+            <th scope="col"><center>Spent</center></th>
+            <th scope="col"><center>Operations</center></th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+        {[...Array(noOfRows)].map((elementInArray, index) => {
+         
+              return (
+              
+                <tr>
+                <th scope="row">{index}</th>
+                <td><center>Pizza</center></td>
+                <td><center>300</center></td>
+                <td><center>200</center></td>
+                <div>
+                    <center>
+                    <Button variant="primary" size="sm">
+                    Delete Budget (add onclick)
+                    </Button>
+                    </center>
+                </div>
+                
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Club Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Bruh we gotta make this a class too</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+              </tr>
+                );
+            })}
+            
+        </tbody>
+            </table>
+       </div>
+       </>
     );
 }
