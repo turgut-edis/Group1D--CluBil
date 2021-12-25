@@ -52,29 +52,6 @@ export default function Calendar (){
       
     }, [loading, auth]);
     
-    const events = [
-      {
-        title: "Long Event",
-        start: getDate("2021-12-13"),
-        end: getDate("2021-12-13")
-      },
-      {
-        title: "Long Event",
-        start: getDate("2021-12-15"),
-        end: getDate("2021-12-15")
-      },
-      {
-        title: "Long Event",
-        start: getDate("2021-12-17"),
-        end: getDate("2021-12-17")
-      },
-      {
-        title: "Long Event",
-        start: getDate("2021-12-19"),
-        end: getDate("2021-12-19")
-      },
-    ];
-    
     function getDate(dayString) {
       const today = new Date();
       const year = today.getFullYear().toString();

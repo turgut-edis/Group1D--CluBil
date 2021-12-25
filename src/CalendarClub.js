@@ -6,11 +6,15 @@ import { auth, db, logout } from "./firebase";
 import "./app.css"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import Manage from "./managers/ManagerFacade";
 
 export default function CalendarClub (){
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [eventData, setEventData] = useState()
+    const [clubEvents, setClubEvents] = useState([])
+    const [newEventsData, setNewData] = useState([])
     const history = useNavigate();
 
     const fetchUsername = async () => {
@@ -25,54 +29,28 @@ export default function CalendarClub (){
           // doc.data() will be undefined in this case
           console.log("No such document!");
         }
-
         setName(data.name);
         setRole(data.type);
+        setClubEvents(data.events)
       } catch (err) {
         console.log(err);
         alert("Fetch error");
       }
     };
 
-    useEffect(async() => {
-      if(loading) return;
-      if (!user) return history("/");
-      await fetchUsername()
+    const fetchEventData = async () => {
+      var b = await Manage("event").getAllEvents()
+      setEventData(b)
+    }
 
-    }, [user, loading]);
-    const events = [
-      { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
-      {
-        title: "Long Event",
-        start: getDate("YEAR-MONTH-07"),
-        end: getDate("YEAR-MONTH-10")
-      },
-      {
-        groupId: "999",
-        title: "Repeating Event",
-        start: getDate("YEAR-MONTH-09T16:00:00+00:00")
-      },
-      {
-        groupId: "999",
-        title: "Repeating Event",
-        start: getDate("YEAR-MONTH-16T16:00:00+00:00")
-      },
-      {
-        title: "Conference",
-        start: "YEAR-MONTH-17",
-        end: getDate("YEAR-MONTH-19")
-      },
-      {
-        title: "Meeting",
-        start: getDate("YEAR-MONTH-18T10:30:00+00:00"),
-        end: getDate("YEAR-MONTH-18T12:30:00+00:00")
-      },
-      { title: "Lunch", start: getDate("YEAR-MONTH-18T12:00:00+00:00") },
-      { title: "Birthday Party", start: getDate("YEAR-MONTH-19T07:00:00+00:00") },
-      { title: "Meeting", start: getDate("YEAR-MONTH-18T14:30:00+00:00") },
-      { title: "Happy Hour", start: getDate("YEAR-MONTH-18T17:30:00+00:00") },
-      { title: "Dinner", start: getDate("YEAR-MONTH-18T20:00:00+00:00") }
-    ];
+    useEffect(async () => {
+      if(loading) return;
+      if (!auth) return history("/");
+      console.log("business")
+      await fetchUsername()
+      await fetchEventData()
+      
+    }, [loading, auth]);
     
     function getDate(dayString) {
       const today = new Date();
@@ -85,68 +63,96 @@ export default function CalendarClub (){
     
       return dayString.replace("YEAR", year).replace("MONTH", month);
     }
-    console.log("You're logged in as ", {role})
-    console.log("Your name is ", {name})
+    console.log(eventData)
+
+   
+
+    if(eventData == null) {
+      return <div>loading...</div>
+    }
+    if(newEventsData.length == 0)
+    {
+    eventData.forEach(element => {
+          console.log(element)
+        
+          if(element.getClub() == user.email) {
+                setNewData(newEventsData => [...newEventsData, {
+                  title: element.getName(),
+                  start: getDate(element.getDateRequested()),
+                  end: getDate(element.getDateRequested())
+                }]
+                )
+      
+          }
+    });
+    }
+      console.log(newEventsData)
     return (
       
       <div>
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom-clubmanager">
-          <div class="container-fluid">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
+ 
+ <div class="container-fluid">
+   <button
+     class="navbar-toggler"
+     type="button"
+     data-mdb-toggle="collapse"
+     data-mdb-target="#navbarSupportedContent"
+     aria-controls="navbarSupportedContent"
+     aria-expanded="false"
+     aria-label="Toggle navigation"
+   >
+     <i class="fas fa-bars"></i>
+   </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                <img
-                  src="https://w3.bilkent.edu.tr/logo/ing-amblem.png"
-                  height="35"
-                  alt="MDB Logo"
-                  loading="lazy"
-                />
-              </a>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   
+     <a class="navbar-brand mt-2 mt-lg-0" href="#">
+       <img
+         src="https://w3.bilkent.edu.tr/logo/ing-amblem.png"
+         height="35"
+         alt="MDB Logo"
+         loading="lazy"
+       />
+     </a>
+    
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item">
+               <a class="nav-link" href="/eventlistclub">Event List</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="/calendarclub">Calendar</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="/clubsclub">Clubs</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" href="/finance">Finance</a>
+               </li>
+           </ul>
 
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link" href="/eventlistclub">Event List</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/calendarclub">Calendar</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/clubsclub">Clubs</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/finance">Finance</a>
-                </li>
-            </ul>
-            </div>
+   </div>
+   
 
-            <div class="d-flex align-items-center">
-            <div class="navbar-text username-css">{name}</div>
-              <a href="/userprofilepage">
-              <img
-                src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
-                class="rounded-circle"
-                height="35"
-                alt="Black and White Portrait of a Man"
-                loading="lazy"
-              />
-              </a>
-              <button type="button" class="btn btn-primary logout-button" onClick={logout}>
-                Logout
-              </button>
-            </div>
-          </div>
-        </nav>
+  
+   <div class="d-flex align-items-center">
+   <div class="navbar-text username-css">{name}</div>
+       <a href="/userprofilepage">
+         <img
+         src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
+         class="rounded-circle"
+         height="35"
+         alt="Black and White Portrait of a Man"
+         loading="lazy"
+       />
+       </a>
+       <button type="button" class="btn btn-primary logout-button" onClick={logout}>Logout</button>
+       
+     
+   </div>
+   
+ </div>
+</nav>
         <div className="App">
       <div className="Calendar">
       <FullCalendar
@@ -158,9 +164,10 @@ export default function CalendarClub (){
         }}
         themeSystem="Simplex"
         plugins={[dayGridPlugin]}
-        events={events}
+        events={newEventsData}
         displayEventEnd="true"
-        eventColor={"#9932cc"}
+        eventColor={"blue"}
+        eventClick={() => console.log("press!")}
       />
       </div>
       
