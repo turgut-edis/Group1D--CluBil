@@ -40,14 +40,8 @@ export default function Finance () {
     };
 
     useEffect(() => {
-<<<<<<< HEAD
       if(loading) return;
-      if (!user) return history("/");
-    }, [user]);
-=======
-      if (!loading) return history("/");
     }, [loading]);
->>>>>>> 5ada4ad6d24e3e778fff8acc8426de09d373be7c
 
     return(
       <>
