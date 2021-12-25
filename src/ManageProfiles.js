@@ -38,10 +38,10 @@ export default function ManageProfiles () {
     };
 
     useEffect(() => {
-      if (loading) return;
+      
       if (!user) return history("/", { replace: true });
       fetchUsername();
-    }, [user, loading]);
+    }, [user]);
 
     return(
       <>
