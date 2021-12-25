@@ -7,12 +7,15 @@ import { Button} from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
 import "./app.css"
 
-export default function ManageProfiles () {
+export default function ManageClubs () {
   const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
     const [noOfRows, setNoOfRows] = useState(1);
+
+    const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
     const history = useNavigate();
 
@@ -108,9 +111,9 @@ export default function ManageProfiles () {
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Profile Name</center></th>
-            <th scope="col"><center>ID</center></th>
-            <th scope="col"><center>Operations</center></th>
+            <th scope="col"><center>Code</center></th>
+            <th scope="col"><center>Name</center></th>
+            <th scope="col"><center>Operation</center></th>
             
             
           </tr>
@@ -122,17 +125,51 @@ export default function ManageProfiles () {
               
                 <tr>
                 <th scope="row">{index}</th>
-                <td><center>Kaan Özaltan</center></td>
-                <td><center>21902695</center></td>
+                <td><center>ACM</center></td>
+                <td><center>Association for Computing Machinery</center></td>
                 <div>
                     <center>
+                    <Button variant="primary" className="admin-set-budget-button" size="sm" onClick={handleShow}>
+                        Set Budget
+                    </Button>
                     <Button variant="primary" size="sm" >
-                    Delete (add onclick)
+                        Delete (add onclick)
                     </Button>
                     </center>
                 </div>
                 
-
+                <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Manage Budget</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+            <div className="popup-info-holder">
+            <div>Club Name:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>Current Monthly Budget:</div> <div>data</div>
+            </div>
+            <div className="popup-info-holder">
+            <div>New Monthly Budget:</div>
+            <input type="text" name="name" />
+            </div>
+            <div className="popup-info-holder">
+            <div>Reason:</div>
+            <input type="text" name="name"/>
+            </div>
+            
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            Set Budget
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       
               </tr>
                 );

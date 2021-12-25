@@ -305,6 +305,7 @@ a {
   justify-content: space-between;
   align-items: stretch;
   text-align: start;
+  margin-bottom: 10px;
 }
 
 .popup-info-container {
@@ -314,4 +315,12 @@ a {
 .add-event-budget-button {
   margin-right: 10px;
   
+}
+
+.decline-delete {
+  margin-left: 10px;
+}
+
+.admin-set-budget-button {
+  margin-right: 10px;
 }

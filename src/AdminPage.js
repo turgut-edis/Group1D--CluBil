@@ -3,13 +3,20 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
+import Modal from "react-bootstrap/Modal";
+import { Button} from 'react-bootstrap';
 import "./app.css"
 
 export default function AdminPage () {
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [noOfRows, setNoOfRows] = useState(1);
+    const [show, setShow] = useState(false);
     const history = useNavigate();
+
+    const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
     const fetchUsername = async () => {
       try {
@@ -33,8 +40,8 @@ export default function AdminPage () {
     };
 
     useEffect(() => {
-      if (!user) return history("/");
-    }, [user]);
+      if(loading) return;
+    }, [loading]);
 
     return (
       <div>
@@ -64,19 +71,13 @@ export default function AdminPage () {
 
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="/manageEvents">
-                    Manage Events
-                  </a>
+                  <a class="nav-link" href="/admin">Manage Events</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/manageClubs">
-                    Manage Clubs
-                  </a>
+                  <a class="nav-link" href="/manageclubs">Manage Clubs</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/manageProfiles">
-                    Manage Profiles
-                  </a>
+                  <a class="nav-link" href="/manageprofiles">Manage Profiles</a>
                 </li>
               </ul>
             </div>
@@ -96,9 +97,50 @@ export default function AdminPage () {
             </div>
           </div>
         </nav>
-        <div>You're logged in as {role} </div>
-        <div>Your name is {name}</div>
-        <div>You're in Admin Page</div>
+        <div className="app container p-5">
+      <table class="table table-hover table-bordered p-5">
+        <thead>
+          <tr>
+            
+            <th scope="col">#</th>
+            <th scope="col"><center>Event Name</center></th>
+            <th scope="col"><center>Club</center></th>
+            <th scope="col"><center>Date</center></th>
+            <th scope="col"><center>Time Block</center></th>
+            <th scope="col"><center>Operation</center></th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+        {[...Array(noOfRows)].map((elementInArray, index) => {
+         
+              return (
+              
+                <tr>
+                <th scope="row">{index}</th>
+                <td><center>Pizza</center></td>
+                <td><center>acm</center></td>
+                <td><center>25/12/2021</center></td>
+                <td><center>18:00-20:00</center></td>
+                <div>
+                    <center>
+                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    Accept
+                    </Button>
+                    <Button variant="primary" size="sm" className="decline-delete" onClick={handleShow}>
+                    Delete
+                    </Button>
+                    </center>
+                </div>
+              </tr>
+                );
+            })}
+            
+        </tbody>
+        
+            </table>
+       </div>
       </div>
     );
   }

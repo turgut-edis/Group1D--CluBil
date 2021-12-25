@@ -115,9 +115,9 @@ export default function Clubs () {
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Club Code</center></th>
-            <th scope="col"><center>Club Name</center></th>
-            <th scope="col"><center>Operations</center></th>
+            <th scope="col"><center>Code</center></th>
+            <th scope="col"><center>Name</center></th>
+            <th scope="col"><center>Operation</center></th>
             
             
           </tr>
