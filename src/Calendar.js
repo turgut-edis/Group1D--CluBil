@@ -139,7 +139,7 @@ export default function Calendar (){
 
             <div class="d-flex align-items-center">
             <div class="navbar-text username-css">{name}</div>
-              <a href="https://clubil.web.app/userprofilepage">
+              <a href="/userprofilepage">
               <img
                 src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
                 class="rounded-circle"

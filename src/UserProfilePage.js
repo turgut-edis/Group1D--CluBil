@@ -91,13 +91,15 @@ function UserProfilePage() {
    
     <div class="d-flex align-items-center">
     <div class="navbar-text username-css">{name}</div>
+        <a href="/userprofilepage">
           <img
           src="https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png"
           class="rounded-circle"
           height="35"
           alt="Black and White Portrait of a Man"
           loading="lazy"
-        />
+          />
+        </a>
         <button type="button" class="btn btn-primary logout-button" onClick={logout}>Logout</button>
         
       
