@@ -44,12 +44,12 @@ const Login = () => {
 
         if(type === "student") 
         {
-          history("/first", { replace: true });
+          history("/first");
         }
         else if(type === "admin") { // bu sac admin olacak
-          history("/admin", { replace: true });
+          history("/admin");
         } else if(type === "advisor"){ // bu advisor olacak
-          history("/clubAdvisor", { replace: true });
+          history("/clubAdvisor");
         } 
         else{
           console.log(type);

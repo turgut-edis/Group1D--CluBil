@@ -33,7 +33,7 @@ export default function Finance () {
     };
 
     useEffect(() => {
-      if (!user) return history("/", { replace: true });
+      if (!user) return history("/");
     }, [user]);
 
     return(

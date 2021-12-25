@@ -4,12 +4,12 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import { getFirestore, collection, addDoc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBTPywpG_cMKxQEi5rgEVpg6lx4GIydm98",
-  authDomain: "clubil-v2.firebaseapp.com",
-  projectId: "clubil-v2",
-  storageBucket: "clubil-v2.appspot.com",
-  messagingSenderId: "122129194201",
-  appId: "1:122129194201:web:16fe0ad326a2404a8e72c8"
+  apiKey: "AIzaSyBJRzOytrNrhQtJE0QcIJTIOKNHBwcn0yE",
+  authDomain: "clubil-v3.firebaseapp.com",
+  projectId: "clubil-v3",
+  storageBucket: "clubil-v3.appspot.com",
+  messagingSenderId: "201811472543",
+  appId: "1:201811472543:web:b0f844ac9a3dd7e1d3b2aa",
 };
 
 const app = initializeApp(firebaseConfig);
