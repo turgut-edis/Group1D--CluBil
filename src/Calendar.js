@@ -99,8 +99,8 @@ export default function Calendar (){
           if(element.getParticipants().indexOf(user.email) > -1) {
                 setNewData(newEventsData => [...newEventsData, {
                   title: element.getName(),
-                  start: getDate("2021-12-19"),
-                  end: getDate("2021-12-19")
+                  start: getDate(element.getDateRequested()),
+                  end: getDate(element.getDateRequested())
                 }]
                 )
       
@@ -148,6 +148,11 @@ export default function Calendar (){
                 <li class="nav-item">
                   <a class="nav-link" href="/clubs">
                     Clubs
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/finance">
+                    Finance
                   </a>
                 </li>
               </ul>
