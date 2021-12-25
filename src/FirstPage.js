@@ -11,8 +11,7 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import "./app.css"
 import UserProfilePage from "./UserProfilePage";
-//ToDo::
-//Ergun
+
 
 function FirstPage() {
   
@@ -130,12 +129,13 @@ function FirstPage() {
       <table class="table table-hover table-bordered p-5">
         <thead>
           <tr>
+            
             <th scope="col">#</th>
-            <th scope="col">Event Name</th>
-            <th scope="col">Club</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time Block</th>
-            <th scope="col">Details</th>
+            <th scope="col"><center>Event Name</center></th>
+            <th scope="col"><center>Club</center></th>
+            <th scope="col"><center>Date</center></th>
+            <th scope="col"><center>Time Block</center></th>
+            <th scope="col"><center>Details</center></th>
             
             
           </tr>
@@ -144,15 +144,21 @@ function FirstPage() {
         {[...Array(noOfRows)].map((elementInArray, index) => {
          
               return (
+              
                 <tr>
                 <th scope="row">{index}</th>
-                <td>Pizza Partisi</td>
-                <td>ACM</td>
-                <td>27.12.2021</td>
-                <td>18.00-20.00</td>
-                <Button variant="outline-primary" size="sm" onClick={handleShow}>
-        Show More
-      </Button>
+                <td><center>Pizza Partisi</center></td>
+                <td><center>ACM</center></td>
+                <td><center>27.12.2021</center></td>
+                <td><center>18.00-20.00</center></td>
+                <div>
+                    <center>
+                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    Show More
+                    </Button>
+                    </center>
+                </div>
+                
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -170,7 +176,7 @@ function FirstPage() {
                 );
             })}
             
-            </tbody>
+        </tbody>
             </table>
        </div>
         
