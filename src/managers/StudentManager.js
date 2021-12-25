@@ -75,6 +75,7 @@ class StudentsManager {
       if (docSnap.exists()) {
         const eventQuota = docSnap.data().quota + 1;
         await updateDoc(sfDocRef1, { quota: eventQuota })
+        await updateDoc(sfDocRef1, { participants: arrayRemove(studentMail) })
         await updateDoc(sfDocRef, { registeredEvents: arrayRemove(eventId) })
       }
     } catch (e) {
