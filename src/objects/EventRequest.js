@@ -1,9 +1,10 @@
+import { Timestamp } from "firebase/firestore/lite";
 
 class EventRequest {
     constructor(id, dateRequested, timeRequested, location, name, club, quota, clubAdvisor, description, duration, advisorReview, confirmed, isOpen){
         this._id = id;
-        this._dateRequested = new Date(dateRequested+" "+timeRequested+":00");
-        this._timeRequested = this.getDateRequested().getHours();
+        this._dateRequested = dateRequested
+        this._timeRequested = timeRequested
         this._location = location;
         this._club = club;
         this._quota = quota;
@@ -14,6 +15,7 @@ class EventRequest {
         this._clubAdvisor = clubAdvisor;
         this._confirmed = confirmed;
         this._isOpen = isOpen;
+        
     }
 
     getId() {

@@ -298,3 +298,15 @@ a {
   float: left;
   position: absolute;
 }
+
+.popup-info-holder { 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  text-align: start;
+}
+
+.popup-info-container {
+    padding: 20px;
+}

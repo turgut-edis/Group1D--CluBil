@@ -40,6 +40,7 @@ export default function Clubs () {
     };
 
     useEffect(() => {
+      if(loading) return;
       if (!user) return history("/");
     }, [user]);
 

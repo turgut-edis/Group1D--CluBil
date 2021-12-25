@@ -56,7 +56,7 @@ const Login = () => {
         }
       
     }
-  }, [user, history, type]);
+  }, [user, type]);
 
   return (
     <div class="login-wrap-2" >

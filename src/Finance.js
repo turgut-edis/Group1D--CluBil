@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore/lite";
 
 export default function Finance () {
 
-  const [user, loading] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const history = useNavigate();
@@ -33,6 +33,7 @@ export default function Finance () {
     };
 
     useEffect(() => {
+      if(loading) return;
       if (!user) return history("/");
     }, [user]);
 

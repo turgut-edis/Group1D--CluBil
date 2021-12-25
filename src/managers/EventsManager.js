@@ -1,7 +1,7 @@
 import Event from "../objects/Event";
 import check from "./Manager";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, arrayUnion } from "firebase/firestore/lite";
+import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, arrayUnion, getDocs, collection } from "firebase/firestore/lite";
 import { eventConverter, eventRequestConverter } from "../helpers/Converters";
 
 
@@ -93,12 +93,22 @@ class EventsManager {
     } 
 
     declineEventRequest(eventId){}
-    
+    async getAllEvents(){
+        var events = []
+        const eventRef = await getDocs(collection(db, 'events').withConverter(eventConverter));
+        eventRef.forEach((doc) => {
+            events.push(doc.data());
+        });
+        return events;
+    }
   }
+  
   
 const eventManager_instance = new EventsManager();
 if (check(eventManager_instance)){
   Object.freeze(eventManager_instance);  
     
 }
+
+
 export default eventManager_instance;

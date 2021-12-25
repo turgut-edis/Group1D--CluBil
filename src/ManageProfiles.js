@@ -40,7 +40,7 @@ export default function ManageProfiles () {
     useEffect(() => {
       
       if (!user) return history("/");
-      fetchUsername();
+    //  fetchUsername();
     }, [user]);
 
     return(

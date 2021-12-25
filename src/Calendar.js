@@ -35,6 +35,7 @@ export default function Calendar (){
     };
 
     useEffect(() => {
+      if(loading) return;
       if (!user) return history("/");
     }, [user]);
     const events = [

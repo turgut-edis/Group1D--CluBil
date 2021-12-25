@@ -50,7 +50,7 @@ function UserProfilePage() {
             alert("Fetch error");
         }
     }
-    fetchUsername()
+   // fetchUsername()
     useEffect(() => {
         if (!auth) return history("/");
     }, [auth]);
