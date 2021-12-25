@@ -54,7 +54,7 @@ const Login = () => {
         else if(type === "adminrolu") { // bu sac admin olacak
           history("/admin", { replace: true });
         } else if(type === "clubAdvisor"){ // bu advisor olacak
-          history("/sacadmin", { replace: true });
+          history("/clubAdvisor", { replace: true });
         } 
         else{
           console.log(type);
