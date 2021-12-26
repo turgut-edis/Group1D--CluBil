@@ -38,7 +38,7 @@ export default function ManageClubs () {
 
       await Manage("club").createClubBudgetRequest(email, b, r);
     }
-    
+
     const fetchUsername = async () => {
       try {
         const docRef = doc(db, "users", user.email);
@@ -63,13 +63,9 @@ export default function ManageClubs () {
     useEffect(async() => {
         if(loading) return;
         if (!user) return history("/");
-        await fetchUsername().then(() => {
-          fetchClubs()
-        })
+        await fetchUsername()
 
       }, [user, loading]);
-
-      
 
     return(
       <>
@@ -146,20 +142,20 @@ export default function ManageClubs () {
           </tr>
         </thead>
         <tbody>
-        {clubNames.map((elementInArray, index) => {
+        {[...Array(noOfRows)].map((elementInArray, index) => {
          
               return (
               
                 <tr>
-                <th scope="row">{index}</th>
-                <td><center>{clubNames[index].getName()}</center></td>
-                <td><center>{clubNames[index].getName()}</center></td>
+                <th scope="row">{index + 1}</th>
+                <td><center>ACM</center></td>
+                <td><center>Association for Computing Machinery</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" className="admin-set-budget-button" size="sm" onClick={handleShow()}>
+                    <Button variant="primary" className="admin-set-budget-button" size="sm">
                         Set Budget
                     </Button>
-                    <Button variant="primary" size="sm" onClick={handleDelete(clubNames[index].getEmail())}>
+                    <Button variant="primary" size="sm" >
                         Delete 
                     </Button>
                     </center>
@@ -172,10 +168,10 @@ export default function ManageClubs () {
         <Modal.Body>
         <div className="popup-info-container">
             <div className="popup-info-holder">
-            <div>Club Name:</div> <div>{clubNames[index].getName()}</div>
+            <div>Club Name:</div> <div>ACM</div>
             </div>
             <div className="popup-info-holder">
-            <div>Current Monthly Budget:</div> <div>{clubNames[index].getBudget}</div>
+            <div>Current Monthly Budget:</div> <div>15000</div>
             </div>
             <div className="popup-info-holder">
             <div>New Monthly Budget:</div>
@@ -189,7 +185,7 @@ export default function ManageClubs () {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleBudgetRequest(clubNames[index].getEmail())}>
+          <Button variant="primary">
             Set Budget
           </Button>
           <Button variant="secondary" onClick={handleClose}>
