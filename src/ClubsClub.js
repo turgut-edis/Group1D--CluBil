@@ -15,7 +15,6 @@ export default function Clubs () {
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
-    const [noOfRows, setNoOfRows] = useState(1);
     const [users, setUsers] = useState([])
     const [activeItem, setActiveItem] = useState(0)
 
@@ -28,7 +27,7 @@ export default function Clubs () {
     }
     const history = useNavigate();
 
-    const fetchEventData = async () => {
+    const fetchClubData = async () => {
       var b = await Manage("event").getAllUsers()
       console.log(b)
       setUsers(b.filter(element => element.getEvents() != undefined))
@@ -59,7 +58,7 @@ export default function Clubs () {
       if(loading) return;
       if (!user) return history("/");
       await fetchUsername()
-      await fetchEventData()
+      await fetchClubData()
 
     }, [user, loading]);
 

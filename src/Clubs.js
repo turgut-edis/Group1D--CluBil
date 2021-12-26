@@ -5,6 +5,8 @@ import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import { Button} from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
+import Manage from "./managers/ManagerFacade";
+
 import "./app.css"
 
 export default function Clubs () {
@@ -13,10 +15,24 @@ export default function Clubs () {
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
     const [noOfRows, setNoOfRows] = useState(1);
+    const [users, setUsers] = useState([])
+    const [activeItem, setActiveItem] = useState(0)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+    const handleClose = () => {
+      setShow(false);
+    }
+    const handleShow = (item) => {
+      setActiveItem(item)
+      setShow(true);
+    }
     const history = useNavigate();
+
+    const fetchClubData = async () => {
+      var b = await Manage("event").getAllUsers()
+      console.log(b)
+      setUsers(b.filter(element => element.getEvents() != undefined))
+    }
 
     const fetchUsername = async () => {
       try {
@@ -43,9 +59,13 @@ export default function Clubs () {
       if(loading) return;
       if (!user) return history("/");
       await fetchUsername()
+      await fetchClubData()
 
     }, [user, loading]);
 
+    if(!users) {
+      return <div>loading...</div>
+    }
     return(
       <>
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
@@ -107,32 +127,29 @@ export default function Clubs () {
     </div>
     
   </div>
-</nav>
-<div className="app container p-5">
+</nav><div className="app container p-5">
       <table class="table table-hover table-bordered p-5">
         <thead>
           <tr>
             
             <th scope="col">#</th>
-            <th scope="col"><center>Code</center></th>
-            <th scope="col"><center>Name</center></th>
-            <th scope="col"><center>Operation</center></th>
+            <th scope="col"><center>Club Name</center></th>
+            <th scope="col"><center>Details</center></th>
             
             
           </tr>
         </thead>
         <tbody>
-        {[...Array(noOfRows)].map((elementInArray, index) => {
+        {users.map((elementInArray, index) => {
          
               return (
               
                 <tr>
-                <th scope="row">{index}</th>
-                <td><center>ACM</center></td>
-                <td><center>ACM Bilkent Student Chapter</center></td>
+                <th scope="row">{index + 1}</th>
+                <td><center>{users[index].getName()}</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    <Button variant="primary" size="sm" onClick={() => handleShow(index)}>
                     Show More
                     </Button>
                     </center>
@@ -141,52 +158,13 @@ export default function Clubs () {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Club Details</Modal.Title>
+          <Modal.Title>{users[activeItem].getName()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className="popup-info-container">
-            <div className="popup-info-holder">
-            <div>Club Name:</div> <div>data</div>
-            </div>
-            <div className="popup-info-holder">
-            <div>Upcoming Events</div> <div>data</div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <p>Advisor 🧑‍🏫: {users[activeItem].getClubAdvisor()}</p>
+          <p>Description✏️: {users[activeItem].getDescription()}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary">
-            Join Club
-          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
