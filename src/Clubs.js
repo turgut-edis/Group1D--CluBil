@@ -18,14 +18,21 @@ export default function Clubs () {
     const [users, setUsers] = useState([])
     const [activeItem, setActiveItem] = useState(0)
     const [currentEventJoined, setJoined] = useState(false)
-
+    const [clubEmails, setEmails] = useState([])
+    const [registeredClubs, setRegisteredClubs] = useState([])
 
     const handleClose = () => {
       setShow(false);
+      setJoined(false)
     }
     const handleShow = (item) => {
       setActiveItem(item)
-      setShow(true);
+      registeredClubs.forEach((club) => {
+          if(club == clubEmails[activeItem]) {
+            setJoined(true)
+          }
+      })
+      setShow(true)
     }
     const history = useNavigate();
 
@@ -40,7 +47,7 @@ export default function Clubs () {
         const docRef = doc(db, "users", user.email);
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
-
+        setEmails([...clubEmails, docRef.id])
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
         } else {
@@ -50,11 +57,24 @@ export default function Clubs () {
 
         setName(data.name);
         setRole(data.type);
+        setRegisteredClubs(data.joinedClubs)
       } catch (err) {
         console.log(err);
         alert("Fetch error");
       }
     };
+
+    const joinEventHandler = async (studentMail, clubMail) => {
+        setJoined(true)
+        await Manage("student").addJoinedClub(studentMail, clubMail)
+        handleClose()
+    }
+
+    const leaveEventHandler = async (studentMail, clubMail) => {
+      setJoined(false)
+      await Manage("student").removeJoinedClub(studentMail, clubMail)
+      handleClose()
+    }
 
     useEffect(async() => {
       if(loading) return;
@@ -64,6 +84,7 @@ export default function Clubs () {
 
     }, [user, loading]);
 
+    console.log("usesr", clubEmails)
     if(!users) {
       return <div>loading...</div>
     }
@@ -167,12 +188,12 @@ export default function Clubs () {
         </Modal.Body>
         <Modal.Footer>
         { currentEventJoined ?
-          (<Button variant="danger" size="sm" >
-            Leave Event
+          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler(user.email, users[activeItem].getEmail())}>
+            Leave Club
           </Button>)
           :
-          (<Button variant="success" size="sm" >
-          Join Event
+          (<Button variant="success" size="sm" onClick={() => joinEventHandler(user.email, users[activeItem].getEmail())}>
+            Join Club
            </Button>)
           }
         </Modal.Footer>

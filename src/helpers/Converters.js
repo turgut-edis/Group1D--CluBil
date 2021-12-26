@@ -61,12 +61,13 @@ const clubConverter = {
             joinedClubs: club.getName(),
             events: club.getEvents(),
             eventRequest: club.getEventRequests(),
-            budget: club.getBudget()
+            budget: club.getBudget(),
+            email: club.getEmail()
         };
     },
     fromFirestore: (snapshot, options) => {
       const data = snapshot.data(options);
-      var club = new Club(options, data.name, data.description, data.clubAdvisor, data.budget);
+      var club = new Club(options, data.name, data.description, data.clubAdvisor, data.budget, data.email);
       club.setEvents(data.events);
       club.setEventRequests(data.eventRequest);
       club.setMembers(data.members);
