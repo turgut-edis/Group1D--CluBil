@@ -141,7 +141,7 @@ export default function Clubs () {
             
             <th scope="col">#</th>
             <th scope="col"><center>Club Name</center></th>
-            <th scope="col"><center></center></th>
+            <th scope="col"><center>Details</center></th>
             
             
           </tr>

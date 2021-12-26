@@ -663,7 +663,7 @@ function UserProfilePage() {
     }
     else
     {
-      return (<div class="nametext"> <strong>31</strong> </div>);
+      return <div>loading...</div>;
     }
   }
   export default UserProfilePage;
