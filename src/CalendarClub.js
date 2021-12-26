@@ -45,12 +45,12 @@ export default function CalendarClub (){
 
     useEffect(async () => {
       if(loading) return;
-      if (!auth) return history("/");
+      if (!user) return history("/");
       console.log("business")
       await fetchUsername()
       await fetchEventData()
       
-    }, [loading, auth]);
+    }, [loading, user]);
     
     function getDate(dayString) {
       const today = new Date();
