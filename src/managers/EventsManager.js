@@ -2,7 +2,7 @@ import Event from "../objects/Event";
 import check from "./Manager";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, arrayUnion, getDocs, collection } from "firebase/firestore/lite";
-import { eventConverter, eventRequestConverter } from "../helpers/Converters";
+import { clubConverter, eventConverter, eventRequestConverter, studentConverter } from "../helpers/Converters";
 
 
 class EventsManager {
@@ -107,9 +107,21 @@ class EventsManager {
             console.log("No document");
         }
     }
+
+    
     async getAllEvents(){
         var events = []
         const eventRef = await getDocs(collection(db, 'events').withConverter(eventConverter));
+        eventRef.forEach((doc) => {
+            events.push(doc.data());
+        });
+        return events;
+    }
+
+    async getAllUsers(){
+        var events = []
+        const eventRef = await getDocs(collection(db, 'users').withConverter(clubConverter));
+        console.log(eventRef)
         eventRef.forEach((doc) => {
             events.push(doc.data());
         });
