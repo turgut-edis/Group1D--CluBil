@@ -9,6 +9,7 @@ import ClubsAdvisor from "./ClubsAdvisor";
 import Modal from "react-bootstrap/Modal";
 import { Button} from 'react-bootstrap';
 import Manage from "./managers/ManagerFacade";
+import { updatePassword } from "firebase/auth";
 //ToDo::
 //Taha
 
@@ -19,15 +20,34 @@ function UserProfilePage() {
     const [joinedClubs, setJoinedClubs] = useState("");
     const [advisingClub, setAdvisingClub] = useState("");
     const [clubAdvisor, setClubAdvisor] = useState("");
+    const [bio, setBio] = useState("");
         const [email, setEmail] = useState("");
     const [data, setData]= useState();
     const history = useNavigate();
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
+    const [show4, setShow4] = useState(false);
+    const [show5, setShow5] = useState(false);
+    const [show6, setShow6] = useState(false);
     const handleClose = () => setShow(false);
   const handleClose2 = () => setShow2(false);
+  const handleShow6 = () => setShow6(true);
+  const handleClose6 = () => setShow6(false);
   const handleShow = () => setShow(true);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = () => setShow4(true);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+
   const handleShow2 = () => setShow2(true);
+
+  const changePass = async () => {
+    var p = document.getElementById("passF").value;
+    await updatePassword(auth.currentUser, p);
+  }
 
   const addEvent = async () => {
     var q = document.getElementById("quotaF").value
@@ -39,6 +59,16 @@ function UserProfilePage() {
     var du = document.getElementById("durationF").value
     var ty = document.getElementById("typeF").value
     await Manage("club").addEventRequest(d, t, l, n, user.email, q, clubAdvisor, de, du, "", false, ty)
+  }
+
+  const changeStudentBio = async () => {
+    var b = document.getElementById("bioF").value
+    await Manage("student").editProfile(name, b);
+  }
+
+  const changeClubBio = async () => {
+    var b = document.getElementById("bioF").value
+    await Manage("club").changeClubInformation(b);
   }
     
     const fetchUsername = async () => {
@@ -56,6 +86,7 @@ function UserProfilePage() {
 
             setName(data.name);
             setRole(data.type);
+            
             setEmail(user.email);
             setData(data);
 
@@ -68,6 +99,7 @@ function UserProfilePage() {
         if(role === "student")
         {
           setJoinedClubs(data.joinedClubs);
+          
         }
         else if(role === "advisor")
         {
@@ -82,7 +114,9 @@ function UserProfilePage() {
     useEffect(async() => {
       if(loading) return;
       if (!user) return history("/");
-      await fetchUsername()
+      await fetchUsername().then(() => {
+        setBio(data.type == "student"? data.biography: data.description);
+      })
     }, [user, loading]);
     
 
@@ -171,8 +205,52 @@ function UserProfilePage() {
   
                       <div class="mt-3">
                         <h4>{name}</h4><br/>
-                        <button class="btn btn-primary">Change Password</button><br/><br/>
-                        <button class="btn btn-outline-primary">Edit Profile</button>
+                        <button class="btn btn-primary" onClick={handleShow6}>Change Password</button><br/><br/>
+                        <Modal show={show6} onHide={handleClose6}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>New Password:</div>
+            <input type="text" name="event name" id="passF"/>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={changePass}>
+            Change
+          </Button>
+          <Button variant="secondary" onClick={handleClose6}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+                        <button class="btn btn-outline-primary"onClick={handleShow5}>Edit Profile</button>
+
+                        <Modal show={show5} onHide={handleClose5}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>Bio:</div>
+            <input type="text" name="event name" id="bioF"/>
+            </div>
+              
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={changeStudentBio}>
+            Change
+          </Button>
+          <Button variant="secondary" onClick={handleClose5}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
                       </div>
                     </div>
                   </div>
@@ -220,7 +298,7 @@ function UserProfilePage() {
                       <div class="row">
                       <div class="col-sm-3">
                         <h6 class="d-flex align-items-center mb-3"><h4><strong>About:</strong></h4></h6>
-                          INFO ABOUT 
+                           {bio}
                         </div>
                         </div>
                       </div>
@@ -465,8 +543,51 @@ function UserProfilePage() {
 
             <div class="mt-3">
               <h4>{name}</h4><br/>
-              <button class="btn btn-primary">Change Password</button><br/><br/>
-              <button class="btn btn-outline-primary">Edit Profile</button>
+              <button class="btn btn-primary" onClick={handleShow4}>Change Password</button><br/><br/>
+              <Modal show={show4} onHide={handleClose4}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>New Password:</div>
+            <input type="text" name="event name" id="passF"/>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={changePass}>
+            Change
+          </Button>
+          <Button variant="secondary" onClick={handleClose4}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+              <button class="btn btn-outline-primary" onClick={handleShow3}>Edit Profile</button>
+              <Modal show={show3} onHide={handleClose3}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>Bio:</div>
+            <input type="text" name="event name" id="bioF"/>
+            </div>
+              
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={changeClubBio}>
+            Change
+          </Button>
+          <Button variant="secondary" onClick={handleClose3}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
             </div>
           </div>
         </div>
@@ -513,7 +634,7 @@ function UserProfilePage() {
                   <div class="card h-100">
                     <div class="card-body">
               <h6 class="d-flex align-items-center mb-3"><h4><strong>About:</strong></h4></h6>
-                INFO ABOUT 
+                {bio} 
               </div>
               </div>
           </div>
