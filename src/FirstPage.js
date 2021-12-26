@@ -38,6 +38,7 @@ function FirstPage() {
     const joinEventHandler = async (eventId, studentMail) => {
        setJoined(true)
        await Manage("student").addJoinedEvent(studentMail, eventId)
+       handleClose()
         
     }
 
@@ -45,6 +46,7 @@ function FirstPage() {
       console.log("leave", studentMail, eventId)
       setJoined(false)
       await Manage("student").removeJoinedEvent(studentMail, eventId)
+      handleClose()
       
     }
 
