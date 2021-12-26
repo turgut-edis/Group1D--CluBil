@@ -5,15 +5,17 @@ import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import "./app.css"
 import { type } from "@testing-library/user-event/dist/type";
+import ClubsAdvisor from "./ClubsAdvisor";
 //ToDo::
 //Taha
 
 function UserProfilePage() {
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState("");
-    const [role, setRole] = useState("student");
+    const [role, setRole] = useState("");
     const [joinedClubs, setJoinedClubs] = useState("");
     const [advisingClub, setAdvisingClub] = useState("");
+    const [clubAdvisor, setClubAdvisor] = useState("");
     const [email, setEmail] = useState("");
     const [data, setData]= useState();
     const history = useNavigate();
@@ -33,21 +35,26 @@ function UserProfilePage() {
 
             setName(data.name);
             setRole(data.type);
-            if(role === "student")
-            {
-              setJoinedClubs(data.joinedClubs);
-            }
-            else if(role === "clubAdvisor")
-            {
-              //console.log(31);
-              setAdvisingClub(data.advisingClub);
-            }
             setEmail(user.email);
             setData(data);
 
         } catch(err) {
             console.log(err);
             alert("Fetch error");
+        }
+
+        
+        if(role === "student")
+        {
+          setJoinedClubs(data.joinedClubs);
+        }
+        else if(role === "advisor")
+        {
+          setAdvisingClub(data.advisingClub);
+        }
+        else if(role === "club")
+        {
+          setClubAdvisor(data.clubAdvisor);
         }
     }
    
@@ -98,9 +105,6 @@ function UserProfilePage() {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/clubs">Clubs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/finance">Finance</a>
           </li>
         </ul>
 
@@ -417,79 +421,95 @@ function UserProfilePage() {
     
   </div>
 </nav>
-        
-        
-        <div class="container giveSpace">      
+       
+<div class="container giveSpace">      
   
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  
-                  <img
-                  src="https://png.pngitem.com/pimgs/s/238-2388363_comment-from-static-noise-profile-picture-vector-hd.png"
-                  class="rounded-circle"
-                  max width="200"
-                  max height="200"
-                  alt="Black and White Portrait of a Man"
-                  loading="lazy"
-                  />
-  
-                  <div class="mt-3">
-                    <h4>{name}</h4><br/>
-                    <button class="btn btn-primary">Change Password</button><br/><br/>
-                    <button class="btn btn-outline-primary">Edit Profile</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mt-3">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0"><h4><strong>Club Information</strong></h4></h6>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0"><strong>Club Name:</strong></h6>
-                  <span class="text-secondary">{name}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0"><strong>Mail:</strong></h6>
-                  <span class="text-secondary">{email}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0"><strong>Role:</strong></h6>
-                  <span class="text-secondary">{role}</span>
-                </li>
-              </ul>
+  <div class="row gutters-sm">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center">
+            
+            <img
+            src="https://png.pngitem.com/pimgs/s/238-2388363_comment-from-static-noise-profile-picture-vector-hd.png"
+            class="rounded-circle"
+            max width="200"
+            max height="200"
+            alt="Black and White Portrait of a Man"
+            loading="lazy"
+            />
+
+            <div class="mt-3">
+              <h4>{name}</h4><br/>
+              <button class="btn btn-primary">Change Password</button><br/><br/>
+              <button class="btn btn-outline-primary">Edit Profile</button>
             </div>
           </div>
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="d-flex align-items-center mb-3"><h4><strong>Notifications:</strong></h4></h6>
-                      NOTIFICATIONS GO HERE <br/>
-                    </div>
-                </div>
-                
-                
-              </div>
-             </div>
-            
-             <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
-                      <div class="card-body">
-                    <h6 class="d-flex align-items-center mb-3"><h4><strong>About:</strong></h4></h6>
-                      INFO ABOUT 
-                    </div>
-                    </div>
-                </div>
-              </div>
-            </div>
         </div>
-      </div></>
+      </div>
+      <div class="card mt-3">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0"><h4><strong>User Information</strong></h4></h6>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0"><strong>Full Name:</strong></h6>
+            <span class="text-secondary">{name}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0"><strong>Mail:</strong></h6>
+            <span class="text-secondary">{email}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0"><strong>Current Advisor:</strong></h6>
+            <span class="text-secondary">{clubAdvisor}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0"><strong>Role:</strong></h6>
+            <span class="text-secondary">{role}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="d-flex align-items-center mb-3"><h4><strong>Notifications:</strong></h4></h6>
+                NOTIFICATIONS GO HERE <br/>
+              </div>
+          </div>
+          
+          
+        </div>
+       </div>
+       <div class="row gutters-sm">
+       <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3"><h4><strong>About:</strong></h4></h6>
+                INFO ABOUT 
+              </div>
+              </div>
+          </div>
+
+          <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3"><h4><strong>Add/Delete Club Events:</strong></h4></h6>
+              <button class="btn btn-primary">Add Event</button><br/><br/>
+              <button class="btn btn-outline-primary">Delete Events</button>
+              </div>
+              </div>
+          </div>
+
+          </div>
+          
+        </div>
+      </div>
+  </div>
+</div></>
       );
     }
     else if(role === "admin")

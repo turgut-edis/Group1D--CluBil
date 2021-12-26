@@ -74,28 +74,29 @@ class EventsManager {
 
     async approveEventRequest(eventId){
         const eventReqRef = doc(db, 'eventRequests', eventId).withConverter(eventRequestConverter);
-        const docEvent = await getDoc(eventReqRef);
-        if (docEvent.exists()){
-            const eventRequest = docEvent.data();
-            const id = eventRequest.getId();
-            const approve = eventRequest.setConfirmed(true);
-            const eventRef = doc(db, 'events', id).withConverter(eventConverter);
-            const newEvent = new Event(eventRequest.getId(), eventRequest.getDateRequested(),eventRequest.getTimeRequested(), 
-                                        eventRequest.getLocation(), 
-                                        eventRequest.getName(), 
-                                        eventRequest.getClub(), 
-                                        eventRequest.getQuota(), 
-                                        eventRequest.getClubAdvisor(), 
-                                        eventRequest.getDescription(), 
-                                        eventRequest.getDuration(), 
-                                        eventRequest.getAdvisorReview(),
-                                        eventRequest.getIsOpen());
-            await updateDoc(eventReqRef, { confirmed: approve }).then(() => {
-                setDoc(eventRef, newEvent);
-            });
-        } else {
-            console.log("No document");
-        }
+        const docEvent = await getDoc(eventReqRef).then(() => {
+            if (docEvent.exists()){
+                const eventRequest = docEvent.data();
+                const id = eventRequest.getId();;
+                const eventRef = doc(db, 'events', id).withConverter(eventConverter);
+                const newEvent = new Event(eventRequest.getId(), eventRequest.getDateRequested(),eventRequest.getTimeRequested(), 
+                                            eventRequest.getLocation(), 
+                                            eventRequest.getName(), 
+                                            eventRequest.getClub(), 
+                                            eventRequest.getQuota(), 
+                                            eventRequest.getClubAdvisor(), 
+                                            eventRequest.getDescription(), 
+                                            eventRequest.getDuration(), 
+                                            eventRequest.getAdvisorReview(),
+                                            eventRequest.getIsOpen());
+                updateDoc(eventReqRef, { confirmed: true }).then(() => {
+                    setDoc(eventRef, newEvent);
+                });
+            } else {
+                console.log("No document");
+            }
+        });
+        
     } 
 
     async declineEventRequest(eventId){
@@ -126,6 +127,15 @@ class EventsManager {
             events.push(doc.data());
         });
         return events;
+    }
+    async getAllEventRequests() {
+        var eventReqs = []
+        const eventRef = await getDocs(collection(db, 'eventRequests').withConverter(eventRequestConverter));
+        eventRef.forEach((doc) => {
+            if( !doc.data().getConfirmed())
+                eventReqs.push(doc.data());
+        });
+        return eventReqs;
     }
   }
   

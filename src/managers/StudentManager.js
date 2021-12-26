@@ -80,18 +80,18 @@ class StudentsManager {
   }
 
   async removeJoinedEvent(studentMail, eventId) {
-    
+    console.log(eventId);
     const sfDocRef = doc(db, 'users', studentMail);
     const sfDocRef1 = doc(db, 'events', eventId);
     try {
-      const docSnap = await getDoc(sfDocRef1);
-      const eventQuota = docSnap.data().quota + 1;
-      await updateDoc(sfDocRef1, { quota: eventQuota }).then(() => {
-        updateDoc(sfDocRef1, { participants: arrayRemove(studentMail) }).then(() => {
-          updateDoc(sfDocRef, { registeredEvents: arrayRemove(eventId)})
-        }) 
-      })
-      
+      await getDoc(sfDocRef1).then((e)=> {
+        const eventQuota = e.data().quota + 1;
+        updateDoc(sfDocRef1, { quota: eventQuota }).then(() => {
+          updateDoc(sfDocRef1, { participants: arrayRemove(studentMail) }).then(() => {
+            updateDoc(sfDocRef, { registeredEvents: arrayRemove(eventId)})
+          }) 
+        })
+      });
     } catch (e) {
       console.log("Failed " + e);
     }

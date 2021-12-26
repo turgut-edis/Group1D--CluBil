@@ -1,7 +1,9 @@
 import { Accordion } from "react-bootstrap";
 
 function PublicEvent(props) {
-  console.log(props);
+  //console.log(props);
+ let e = props.eventKey;
+  if(e == 2){
   return (
     <Accordion>
       <Accordion.Item eventKey={props.eventKey}>
@@ -14,6 +16,8 @@ function PublicEvent(props) {
       </Accordion.Item>
     </Accordion>
   );
+  }
+  return ""
 }
 
 export default PublicEvent;
