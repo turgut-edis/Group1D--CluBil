@@ -95,7 +95,7 @@ const eventRequestConverter = {
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new EventRequest(data.id, data.dateRequested, data.timeRequested, data.location, data.nname, data.club, data.quota, data.advisor, data.description, data.duration, data.advisorReview, data.confirmed, data.isOpen);
+        return new EventRequest(data.id, data.dateRequested, data.timeRequested, data.location, data.nname, data.club, data.quota, data.clubAdvisor, data.description, data.duration, data.advisorReview, data.confirmed, data.isOpen);
     }
 };
 

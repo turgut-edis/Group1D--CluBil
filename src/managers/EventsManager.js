@@ -1,29 +1,27 @@
 import Event from "../objects/Event";
 import check from "./Manager";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, arrayUnion, getDocs, collection } from "firebase/firestore/lite";
-import { clubConverter, eventConverter, eventRequestConverter, studentConverter } from "../helpers/Converters";
-
+import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, getDocs,addDoc, collection } from "firebase/firestore/lite";
+import { eventConverter, eventRequestConverter } from "../helpers/Converters";
 
 class EventsManager {
     constructor(){
-     if(! EventsManager._eventM){
-       EventsManager._eventM = this;
-     }
-     return EventsManager._eventM;
+        if(! EventsManager._eventM){
+            EventsManager._eventM = this;
+        }
+        return EventsManager._eventM;
     }
 
     getInstance(){
         return EventsManager._eventM;
     }
     
-    
     async addEvent(eventName, eventDate, eventTime, eventDuration, eventDescription, eventQuota, eventLocation, eventClub, eventAdvisor, advisorReview, isOpen){
-        const event = new Event(eventDate,eventTime, eventLocation, eventName, eventClub, eventQuota, eventAdvisor, eventDescription, eventDuration, advisorReview, isOpen);
+        const event = new Event(0, eventDate,eventTime, eventLocation, eventName, eventClub, eventQuota, eventAdvisor, eventDescription, eventDuration, advisorReview, isOpen);
         try{
-            const ref = doc(collection(db,'events')).withConverter(eventConverter);
-            event.setId(ref.id);
-            await setDoc(ref, event);
+            const eventRef = doc(collection(db,'events')).withConverter(eventConverter);
+            event.setId(eventRef.id);
+            await setDoc(eventRef, event);
             return true;
         } catch (err) {
             console.error(err);
@@ -43,108 +41,74 @@ class EventsManager {
 
     async addStudentToEvent(eventId, studentMail){
         const eventRef = doc(db, 'events', eventId).withConverter(eventConverter);
-        const docEvent = await getDoc(eventRef);
-        if (docEvent.exists()){
+        await getDoc(eventRef).then((docEvent) => {
             const event = docEvent.data();
             const eventQuota = event.getQuota() - 1;
             const participants = event.getParticipants();
             participants.push(studentMail);
-            await updateDoc(eventRef, { participants: participants }).then(() => {
+            updateDoc(eventRef, { participants: participants }).then(() => {
                 updateDoc(eventRef, { quota: eventQuota});
             });
-        } else {
-            console.log("No document");
-        }
+        }).catch((error) => {console.log(error)});
     }
 
     async removeStudentFromEvent(eventId, studentMail){
         const eventRef = doc(db, 'events', eventId).withConverter(eventConverter);
-        const docEvent = await getDoc(eventRef);
-        console.log(docEvent.data())
-        if (docEvent.exists()){
+        await getDoc(eventRef).then((docEvent) => {
             const event = docEvent.data();
             const eventQuota = event.getQuota() + 1;
-            await updateDoc(eventRef, { participants: arrayRemove(studentMail) }).then(() => {
+            updateDoc(eventRef, { participants: arrayRemove(studentMail) }).then(() => {
                 updateDoc(eventRef, { quota: eventQuota});
             });
-        } else {
-            console.log("No document");
-        }
+        }).catch((error) => {console.log(error)});
     }
 
     async approveEventRequest(eventId){
         const eventReqRef = doc(db, 'eventRequests', eventId).withConverter(eventRequestConverter);
-        const docEvent = await getDoc(eventReqRef).then(() => {
-            if (docEvent.exists()){
+        await getDoc(eventReqRef).then((docEvent) => {
                 const eventRequest = docEvent.data();
-                const id = eventRequest.getId();;
-                const eventRef = doc(db, 'events', id).withConverter(eventConverter);
-                const newEvent = new Event(eventRequest.getId(), eventRequest.getDateRequested(),eventRequest.getTimeRequested(), 
-                                            eventRequest.getLocation(), 
-                                            eventRequest.getName(), 
-                                            eventRequest.getClub(), 
-                                            eventRequest.getQuota(), 
-                                            eventRequest.getClubAdvisor(), 
-                                            eventRequest.getDescription(), 
-                                            eventRequest.getDuration(), 
-                                            eventRequest.getAdvisorReview(),
-                                            eventRequest.getIsOpen());
-                updateDoc(eventReqRef, { confirmed: true }).then(() => {
-                    setDoc(eventRef, newEvent);
-                });
-            } else {
-                console.log("No document");
-            }
-        });
+                console.log(eventRequest);
+                this.addEvent(eventRequest.getName(), eventRequest.getDateRequested(),eventRequest.getTimeRequested(), eventRequest.getDuration(), eventRequest.getDescription()
+                                            ,eventRequest.getQuota(),eventRequest.getLocation(), 
+                                            eventRequest.getClub(), eventRequest.getClubAdvisor(),   
+                                            eventRequest.getAdvisorReview(), eventRequest.getIsOpen());
+                updateDoc(eventReqRef, { confirmed: true })
+        }).catch((error) => {console.log(error)});
         
     } 
 
     async declineEventRequest(eventId){
         const eventReqRef = doc(db, 'eventRequests', eventId).withConverter(eventRequestConverter);
-        const docEvent = await getDoc(eventReqRef);
-        if (docEvent.exists()){
-            await deleteDoc(eventReqRef);
-        } else {
-            console.log("No document");
-        }
+        await getDoc(eventReqRef).then((docEvent) => {
+            deleteDoc(eventReqRef);
+        }).catch((error) => {console.log(error)});
     }
-
-    
     async getAllEvents(){
         var events = []
-        const eventRef = await getDocs(collection(db, 'events').withConverter(eventConverter));
-        eventRef.forEach((doc) => {
-            events.push(doc.data());
-        });
+        await getDocs(collection(db, 'events').withConverter(eventConverter)).then((eventRef) => {
+            eventRef.forEach((doc) => {
+                events.push(doc.data());
+            });
+        }).catch((error) => {console.log(error)});
         return events;
     }
 
-    async getAllUsers(){
-        var events = []
-        const eventRef = await getDocs(collection(db, 'users').withConverter(clubConverter));
-        console.log(eventRef)
-        eventRef.forEach((doc) => {
-            events.push(doc.data());
-        });
-        return events;
-    }
     async getAllEventRequests() {
         var eventReqs = []
-        const eventRef = await getDocs(collection(db, 'eventRequests').withConverter(eventRequestConverter));
-        eventRef.forEach((doc) => {
-            if( !doc.data().getConfirmed())
-                eventReqs.push(doc.data());
-        });
+        await getDocs(collection(db, 'eventRequests').withConverter(eventRequestConverter)).then((eventRef) => {
+            eventRef.forEach((doc) => {
+                if( !doc.data().getConfirmed())
+                    eventReqs.push(doc.data());
+            });
+        }).catch((error) => {console.log(error)});
         return eventReqs;
     }
   }
-  
   
 const eventManager_instance = new EventsManager();
 if (check(eventManager_instance)){
   Object.freeze(eventManager_instance);  
     
 }
-
 
 export default eventManager_instance;

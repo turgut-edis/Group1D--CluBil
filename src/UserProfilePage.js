@@ -8,6 +8,7 @@ import { type } from "@testing-library/user-event/dist/type";
 import ClubsAdvisor from "./ClubsAdvisor";
 import Modal from "react-bootstrap/Modal";
 import { Button} from 'react-bootstrap';
+import Manage from "./managers/ManagerFacade";
 //ToDo::
 //Taha
 
@@ -27,6 +28,18 @@ function UserProfilePage() {
   const handleClose2 = () => setShow2(false);
   const handleShow = () => setShow(true);
   const handleShow2 = () => setShow2(true);
+
+  const addEvent = async () => {
+    var q = document.getElementById("quotaF").value
+    var n = document.getElementById("eventNameF").value
+    var d = document.getElementById("dateF").value
+    var t = document.getElementById("timeF").value
+    var l = document.getElementById("locationF").value
+    var de = document.getElementById("descriptionF").value
+    var du = document.getElementById("durationF").value
+    var ty = document.getElementById("typeF").value
+    await Manage("club").addEventRequest(d, t, l, n, user.email, q, clubAdvisor, de, du, "", false, ty)
+  }
     
     const fetchUsername = async () => {
         try {
@@ -517,30 +530,42 @@ function UserProfilePage() {
         <div className="popup-info-container">
         <div className="popup-info-holder">
             <div>Event Name:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="event name" id="eventNameF"/>
             </div>
             <div className="popup-info-holder">
             <div>Date:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="date" id="dateF"/>
             </div>
             <div className="popup-info-holder">
             <div>Time:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="time" id="timeF"/>
             </div>
             <div className="popup-info-holder">
             <div>Location:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="location" id="locationF"/>
             </div>
             <div className="popup-info-holder">
             <div>Description:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="description" id="descriptionF"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Duration:</div>
+            <input type="text" name="duration" id="durationF"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Quota:</div>
+            <input type="text" name="quota" id="quotaF"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>EventType:</div>
+            <input type="text" name="eventType" id="typeF"/>
             </div>
             
             
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary">
+          <Button variant="primary" onClick={addEvent}>
             Add Event
           </Button>
           <Button variant="secondary" onClick={handleClose}>

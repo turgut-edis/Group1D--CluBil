@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
-import Modal from "react-bootstrap/Modal";
+import Manage from "./managers/ManagerFacade";
 import { Button} from 'react-bootstrap';
 import "./app.css"
 
@@ -12,38 +12,48 @@ export default function AdminPage () {
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [noOfRows, setNoOfRows] = useState(1);
+    const [data, setData]= useState();
     const [show, setShow] = useState(false);
     const history = useNavigate();
 
     const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const handleShow = () => setShow(true);
+
+    const fetchEventReqData = async () => {
+        var reqs = await Manage("event").getAllEventRequests();
+        setData(reqs);
+        setNoOfRows(reqs);
+    };
+
+    const approve = async (eventId) => {
+        await Manage("event").approveEventRequest(eventId);
+    }
+  
+    const decline = async (eventId) => {
+        await Manage("event").declineEventRequest(eventId);
+    }
 
     const fetchUsername = async () => {
-      try {
         const docRef = doc(db, "users", user.email);
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data();
-
-        if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
-
-        setName(data.name);
-        setRole(data.type);
-      } catch (err) {
-        console.log(err);
-        alert("Fetch error");
-      }
+        await getDoc(docRef).then((docSnap) => {
+          const data = docSnap.data();
+          setName(data.name);
+          setRole(data.type);
+        }).catch((error) => {
+          console.log(error);
+          alert("Fetch error");});
     };
 
     useEffect(async() => {
       if(loading) return;
       if (!user) return history("/");
       await fetchUsername()
+      await fetchEventReqData()
     }, [user, loading]);
+
+    if(data == null) {
+      return <div>loading...</div>
+    }
 
     return (
       <div>
@@ -115,22 +125,22 @@ export default function AdminPage () {
           </tr>
         </thead>
         <tbody>
-        {[...Array(noOfRows)].map((elementInArray, index) => {
+        {data.map((elementInArray, index) => {
          
               return (
               
                 <tr>
-                <th scope="row">{index}</th>
-                <td><center>Pizza</center></td>
-                <td><center>acm</center></td>
-                <td><center>25/12/2021</center></td>
-                <td><center>18:00-20:00</center></td>
+                <th scope="row">{index + 1}</th>
+                <td><center>{data[index].getName()}</center></td>
+                <td><center>{data[index].getClub()}</center></td>
+                <td><center>{data[index].getDateRequested()}</center></td>
+                <td><center>{data[index].getTimeRequested()}</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" size="sm" onClick={handleShow}>
+                    <Button variant="primary" size="sm" onClick={() => {approve(data[index].getId())}}>
                     Accept
                     </Button>
-                    <Button variant="primary" size="sm" className="decline-delete" onClick={handleShow}>
+                    <Button variant="primary" size="sm" className="decline-delete" onClick={() => {decline(data[index].getId())}}>
                     Delete
                     </Button>
                     </center>
