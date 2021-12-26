@@ -68,9 +68,9 @@ function UserProfilePage() {
    
     useEffect(async() => {
       if(loading) return;
-      if (!auth) return history("/");
+      if (!user) return history("/");
       await fetchUsername()
-    }, [auth, loading]);
+    }, [user, loading]);
     
 
     if(role === "student")
