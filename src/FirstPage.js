@@ -100,10 +100,10 @@ function FirstPage() {
     let eventId = (item + 1).toString()
     console.log('itenm', eventId)
     console.log('events', registeredEvents)
+    
 
     registeredEvents.forEach((event) => {
-      if(eventId == event) {
-        
+      if(event == data[item].getId()) {
         setJoined(true)
       }
     })
