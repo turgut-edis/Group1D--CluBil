@@ -2,7 +2,7 @@ import Event from "../objects/Event";
 import check from "./Manager";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayRemove, deleteDoc, getDocs,addDoc, collection } from "firebase/firestore/lite";
-import { eventConverter, eventRequestConverter } from "../helpers/Converters";
+import { clubConverter, eventConverter, eventRequestConverter } from "../helpers/Converters";
 
 class EventsManager {
     constructor(){
@@ -86,6 +86,16 @@ class EventsManager {
     async getAllEvents(){
         var events = []
         await getDocs(collection(db, 'events').withConverter(eventConverter)).then((eventRef) => {
+            eventRef.forEach((doc) => {
+                events.push(doc.data());
+            });
+        }).catch((error) => {console.log(error)});
+        return events;
+    }
+
+    async getAllUsers(){
+        var events = []
+        await getDocs(collection(db, 'users').withConverter(clubConverter)).then((eventRef) => {
             eventRef.forEach((doc) => {
                 events.push(doc.data());
             });
