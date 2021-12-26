@@ -2,18 +2,9 @@ import { Accordion } from "react-bootstrap";
 
 function PublicEvent(props) {
   //console.log(props);
- /*  let e = props.eventKey;
+ let e = props.eventKey;
   if(e == 2){
-    var a = "Public Event";
-  }
-  else if(e == 1){
-    var a = "Campus Only";
-  }
-  if(e == 2){
-    var a = "Private Event";
-  } */
   return (
-    
     <Accordion>
       <Accordion.Item eventKey={props.eventKey}>
         <Accordion.Header>{props.name}</Accordion.Header>
@@ -25,6 +16,8 @@ function PublicEvent(props) {
       </Accordion.Item>
     </Accordion>
   );
+  }
+  return ""
 }
 
 export default PublicEvent;
