@@ -6,6 +6,8 @@ import { auth, db, logout } from "./firebase";
 import "./app.css"
 import { type } from "@testing-library/user-event/dist/type";
 import ClubsAdvisor from "./ClubsAdvisor";
+import Modal from "react-bootstrap/Modal";
+import { Button} from 'react-bootstrap';
 //ToDo::
 //Taha
 
@@ -16,9 +18,15 @@ function UserProfilePage() {
     const [joinedClubs, setJoinedClubs] = useState("");
     const [advisingClub, setAdvisingClub] = useState("");
     const [clubAdvisor, setClubAdvisor] = useState("");
-    const [email, setEmail] = useState("");
+        const [email, setEmail] = useState("");
     const [data, setData]= useState();
     const history = useNavigate();
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const handleClose = () => setShow(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow = () => setShow(true);
+  const handleShow2 = () => setShow2(true);
     
     const fetchUsername = async () => {
         try {
@@ -105,6 +113,9 @@ function UserProfilePage() {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/clubs">Clubs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/finance">Finance</a>
           </li>
         </ul>
 
@@ -498,8 +509,113 @@ function UserProfilePage() {
                   <div class="card h-100">
                     <div class="card-body">
               <h6 class="d-flex align-items-center mb-3"><h4><strong>Add/Delete Club Events:</strong></h4></h6>
-              <button class="btn btn-primary">Add Event</button><br/><br/>
-              <button class="btn btn-outline-primary">Delete Events</button>
+              <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+        <div className="popup-info-holder">
+            <div>Event Name:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Date:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Time:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Location:</div>
+            <input type="text" name="name"/>
+            </div>
+            <div className="popup-info-holder">
+            <div>Description:</div>
+            <input type="text" name="name"/>
+            </div>
+            
+            
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            Add Event
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="popup-info-container">
+            <div className="popup-info-holder">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <div>
+                  <Button variant="primary" size="sm" onClick={handleClose}>
+            Delete
+          </Button>
+          </div>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <div>
+                  <Button variant="primary" size="sm" onClick={handleClose}>
+            Delete
+          </Button>
+          </div>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                  <div>
+                  <Button variant="primary" size="sm" onClick={handleClose}>
+            Delete
+          </Button>
+          </div>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            Set Budget
+          </Button>
+          <Button variant="secondary" onClick={handleClose2}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+              <button class="btn btn-primary" onClick={handleShow}>Add Event</button><br/><br/>
+              <button class="btn btn-outline-primary" onClick={handleShow2}>Delete Event</button>
               </div>
               </div>
           </div>
@@ -663,7 +779,7 @@ function UserProfilePage() {
     }
     else
     {
-      return <div>loading...</div>;
+      return (<div class="nametext"> <strong>31</strong> </div>);
     }
   }
   export default UserProfilePage;
