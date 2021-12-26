@@ -3,24 +3,63 @@ import { useNavigate } from "react-router-dom";
 import img2 from "./INGlogo-e1460465121276.jpg";
 import {
   auth,
-  signWithEmailAndPassword,
+  db
 } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./app.css";
+import { doc, getDoc } from "firebase/firestore/lite";
+import Manage  from "./managers/ManagerFacade";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [type, setType] = useState("");
   const [user, loading] = useAuthState(auth);
   const history = useNavigate();
 
-  useEffect(() => {
-    if (loading) {
-      //Loading Screen
-      return;
+  const fetchUsername = async () => {
+    try {
+        const docRef = doc(db, "users", user.email);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+
+        if (docSnap.exists()) {
+          console.log("Document data:", data);
+          setType(data.type);
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+        
     }
-    if (user) history("/first", { replace: true });
-  }, [loading, user, history]);
+        catch(err) {
+        console.log(err);
+        alert("Fetch error");
+    }
+  }
+  useEffect(  () => {
+    if (user) {
+       fetchUsername()
+       console.log("type.." ,type)
+
+        if(type === "student") 
+        {
+          history("/first");
+        }
+        else if(type === "admin") { // bu sac admin olacak
+          history("/admin");
+        } else if(type === "advisor"){ // bu advisor olacak
+          history("/eventlistadvisor");
+        } 
+        else if (type === "club") {
+          history("/eventlistclub");
+        }
+        else {
+          console.log(type);
+        }
+      
+    }
+  }, [user, type]);
 
   return (
     <div class="login-wrap-2" >
@@ -32,10 +71,10 @@ const Login = () => {
           <label for="tab-2" class="tab" display="none"></label>
           <div class="login-form">
             <div class="sign-in-htm">
-              <img src={img2} width="300" height="70" className="im" />
-              <p style={{ marginBottom: "0" }}>
-                <div style={{ color: "#0A1551", marginTop: "40px", fontSize: "20px", textAlign: "center" }}>
-                  Club Management System
+              <img src={img2} width="400" height="85"/>
+              <p style={{ marginBottom: "50" }}>
+                <div style={{ color: "#0A1551", marginTop: "23px", fontSize: "20px", textAlign: "center" }}>
+                  Club Management System Login
                 </div>
               </p>
 
@@ -66,31 +105,10 @@ const Login = () => {
               </div>
               <div class="group">
                 <input
-                  id="check"
-                  type="checkbox"
-                  class="check"
-                  valuPropName="checked"
-                />
-                <label
-                  for="check"
-                  style={{ color: "#0A1551", display: "flex" }}
-                >
-                  <span
-                    class="icon"
-                    style={{
-                      backgroundColor: "rgba(128, 128, 128, 0.24)",
-                      color: "#0A1551",
-                    }}
-                  ></span>{" "}
-                  Remember Me{" "}
-                </label>
-              </div>
-              <div class="group">
-                <input
                   type="submit"
                   class="button"
                   value="Sign In"
-                  onClick={() => signWithEmailAndPassword(email, password)}
+                  onClick={() => Manage("login").login(email, password)}
                 />
               </div>
             </div>

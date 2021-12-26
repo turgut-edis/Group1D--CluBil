@@ -14,18 +14,17 @@ import UserProfilePage from "./UserProfilePage";
 import Manage from "./managers/ManagerFacade";
 
 
-function FirstPage() {
+function EventListClub() {
   
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
-    const [studentEmail, setStudentEmail] = useState("")
     const [role, setRole] = useState("");
     const [data, setData]= useState();
     const [activeItem, setActiveItem] = useState(0);
+    const [show, setShow] = useState(false);
     const [currentEventJoined, setJoined] = useState(false)
     const [registeredEvents, setRegisteredEvent] = useState([])
-
-    
+    const [newEventsData, setNewEventsData] = useState([])
     const [noOfRows, setNoOfRows] = useState(1);
     const history = useNavigate();
 
@@ -33,21 +32,6 @@ function FirstPage() {
       var b = await Manage("event").getAllEvents()
       setData(b)
       setNoOfRows(b)
-    }
-
-    const joinEventHandler = async (eventId, studentMail) => {
-       setJoined(true)
-       await Manage("student").addJoinedEvent(studentMail, eventId)
-       handleClose()
-        
-    }
-
-    const leaveEventHandler = async (eventId, studentMail) => {
-      console.log("leave", studentMail, eventId)
-      setJoined(false)
-      await Manage("student").removeJoinedEvent(studentMail, eventId)
-      handleClose()
-      
     }
 
     const fetchUsername = async () => {
@@ -64,8 +48,6 @@ function FirstPage() {
             }
 
             setName(data.name);
-            setStudentEmail(docRef.id)
-            setRegisteredEvent(data.registeredEvents)
 
         } catch(err) {
             console.log(err);
@@ -87,37 +69,48 @@ function FirstPage() {
     if(data != null)
       console.log(data[0].getDescription())
     
-    const [show, setShow] = useState(false);
-
-  const handleClose = () => {
-    setShow(false);
-    setJoined(false)
-  }
-  const handleShow = (item) => {
-    setActiveItem(item)
-    
-    //
-    let eventId = (item + 1).toString()
-    console.log('itenm', eventId)
-    console.log('events', registeredEvents)
-    
-
-    registeredEvents.forEach((event) => {
-      if(event == data[item].getId()) {
-        setJoined(true)
+      const handleClose = () => {
+        setShow(false);
+        setJoined(false)
       }
-    })
-    setShow(true);
-  }
+  const handleShow = (item) => {
+        setActiveItem(item)
+        
+        //
+        let eventId = (item + 1).toString()
+        console.log('itenm', eventId)
+        console.log('events', registeredEvents)
+    
+        registeredEvents.forEach((event) => {
+          if(eventId == event) {
+            
+            setJoined(true)
+          }
+        })
+        setShow(true);
+      }
     
   if(data == null) {
     return <div>loading...</div>
   }
+  if(newEventsData.length == 0)
+    {
+    data.forEach(element => {
+          console.log(element, user.email)
+        
+          if(element.getClub() == user.email) {
+                setNewEventsData(newEventsData => [...newEventsData, element]
+                )
+      
+          }
+    });
+    }
+      console.log(newEventsData)
 
   return (
       <>
 
-<nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-sm navbar-dark navbar-custom-clubmanager">
  
   <div class="container-fluid">
     <button
@@ -145,13 +138,16 @@ function FirstPage() {
      
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/first">Event List</a>
+          <a class="nav-link" href="/eventlistclub">Event List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/calendar">Calendar</a>
+          <a class="nav-link" href="/calendarclub">Calendar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/clubs">Clubs</a>
+          <a class="nav-link" href="/clubsclub">Clubs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/finance">Finance</a>
         </li>
       </ul>
 
@@ -193,16 +189,16 @@ function FirstPage() {
           </tr>
         </thead>
         <tbody>
-        {data.map((elementInArray, index) => {
+        {newEventsData.map((elementInArray, index) => {
               console.log(elementInArray, index)
               return (
               
                 <tr>
                 <th scope="row">{index + 1}</th>
-                <td><center>{data[index].getName()}</center></td>
-                <td><center>{data[index].getClub()}</center></td>
-                <td><center>{data[index].getDateRequested()}</center></td>
-                <td><center>{data[index].getTimeRequested()}</center></td>
+                <td><center>{newEventsData[index].getName()}</center></td>
+                <td><center>{newEventsData[index].getClub()}</center></td>
+                <td><center>{newEventsData[index].getDateRequested()}</center></td>
+                <td><center>{newEventsData[index].getTimeRequested()}</center></td>
                 <div>
                     <center>
                     <Button variant="primary" size="sm" onClick={() => handleShow(index)}>
@@ -214,42 +210,33 @@ function FirstPage() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{data[activeItem].getName()}</Modal.Title>
+          <Modal.Title>{newEventsData[activeItem].getName()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="popup-info-container">
             <div className="popup-info-holder">
-            <div>Location:</div> <div>{data[activeItem].getLocation()}</div>
+            <div>Location:</div> <div>{newEventsData[activeItem].getLocation()}</div>
             </div>
             <div className="popup-info-holder">
-            <div>Description:</div> <div>{data[activeItem].getDescription()} </div>
+            <div>Description:</div> <div>{newEventsData[activeItem].getDescription()} </div>
             </div>
             <div className="popup-info-holder">
-            <div>Club:</div> <div>{data[activeItem].getClub()} </div>
+            <div>Club:</div> <div>{newEventsData[activeItem].getClub()} </div>
             </div>
             <div className="popup-info-holder">
-            <div>Duration:</div> <div>{data[activeItem].getDuration()} minutes </div>
+            <div>Duration:</div> <div>{newEventsData[activeItem].getDuration()} minutes </div>
             </div>
             <div className="popup-info-holder">
-            <div>Available Quota:</div> <div>{data[activeItem].getQuota()} left </div>
+            <div>Available Quota:</div> <div>{newEventsData[activeItem].getQuota()} left </div>
             </div>
             <div className="popup-info-holder">
-            <div>Time:</div> <div>{data[activeItem].getTimeRequested()}  </div>
+            <div>Time:</div> <div>{newEventsData[activeItem].getTimeRequested()}  </div>
             </div>
             <div className="popup-info-holder">
-            <div>Date:</div> <div>{data[activeItem].getDateRequested()}  </div>
+            <div>Date:</div> <div>{newEventsData[activeItem].getDateRequested()}  </div>
             </div>
           </div>
-          { currentEventJoined ?
-          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler( data[activeItem].getId(), studentEmail )}>
-            Leave Event
-          </Button>)
-          :
-          (<Button variant="success" size="sm" onClick={() => joinEventHandler(data[activeItem].getId(), studentEmail)}>
-          Join Event
-        </Button>)
-
-          }
+          
           </Modal.Body>
         <Modal.Footer>
          
@@ -266,4 +253,4 @@ function FirstPage() {
         </>
   );
 }
-export default FirstPage;
+export default EventListClub;
