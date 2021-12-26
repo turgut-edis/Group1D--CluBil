@@ -47,8 +47,9 @@ export default function AdminPage () {
     useEffect(async() => {
       if(loading) return;
       if (!user) return history("/");
-      await fetchUsername()
-      await fetchEventReqData()
+      await fetchUsername().then(() => {
+        fetchEventReqData()
+      })
     }, [user, loading]);
 
     if(data == null) {

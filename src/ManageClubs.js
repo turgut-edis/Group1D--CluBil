@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore/lite";
 import { auth, db, logout } from "./firebase";
 import { Button} from 'react-bootstrap';
+import Manage from "./managers/ManagerFacade";
 import Modal from "react-bootstrap/Modal";
 import "./app.css"
 
@@ -13,12 +14,31 @@ export default function ManageClubs () {
     const [role, setRole] = useState("");
     const [show, setShow] = useState(false);
     const [noOfRows, setNoOfRows] = useState(1);
+    const [clubNames, setClubNames] = useState(1);
+
 
     const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleDelete = async (clubEmail) => {
+
+      await Manage("club").deleteClub(clubEmail);
+  }
+
     const history = useNavigate();
 
+    const fetchClubs = async () =>{
+      const m = await Manage("event").getAllUsers();
+      setClubNames(m);
+    }
+
+    const handleBudgetRequest = async (email) => {
+      var b = document.getElementById("budgetF").value;
+      var r = document.getElementById("reasonF").value;
+
+      await Manage("club").createClubBudgetRequest(email, b, r);
+    }
+    
     const fetchUsername = async () => {
       try {
         const docRef = doc(db, "users", user.email);
@@ -43,9 +63,13 @@ export default function ManageClubs () {
     useEffect(async() => {
         if(loading) return;
         if (!user) return history("/");
-        await fetchUsername()
+        await fetchUsername().then(() => {
+          fetchClubs()
+        })
 
       }, [user, loading]);
+
+      
 
     return(
       <>
@@ -122,21 +146,21 @@ export default function ManageClubs () {
           </tr>
         </thead>
         <tbody>
-        {[...Array(noOfRows)].map((elementInArray, index) => {
+        {clubNames.map((elementInArray, index) => {
          
               return (
               
                 <tr>
                 <th scope="row">{index}</th>
-                <td><center>ACM</center></td>
-                <td><center>Association for Computing Machinery</center></td>
+                <td><center>{clubNames[index].getName()}</center></td>
+                <td><center>{clubNames[index].getName()}</center></td>
                 <div>
                     <center>
-                    <Button variant="primary" className="admin-set-budget-button" size="sm" onClick={handleShow}>
+                    <Button variant="primary" className="admin-set-budget-button" size="sm" onClick={handleShow()}>
                         Set Budget
                     </Button>
-                    <Button variant="primary" size="sm" >
-                        Delete (add onclick)
+                    <Button variant="primary" size="sm" onClick={handleDelete(clubNames[index].getEmail())}>
+                        Delete 
                     </Button>
                     </center>
                 </div>
@@ -148,24 +172,24 @@ export default function ManageClubs () {
         <Modal.Body>
         <div className="popup-info-container">
             <div className="popup-info-holder">
-            <div>Club Name:</div> <div>data</div>
+            <div>Club Name:</div> <div>{clubNames[index].getName()}</div>
             </div>
             <div className="popup-info-holder">
-            <div>Current Monthly Budget:</div> <div>data</div>
+            <div>Current Monthly Budget:</div> <div>{clubNames[index].getBudget}</div>
             </div>
             <div className="popup-info-holder">
             <div>New Monthly Budget:</div>
-            <input type="text" name="name" />
+            <input type="text" name="name" id="budgetF"/>
             </div>
             <div className="popup-info-holder">
             <div>Reason:</div>
-            <input type="text" name="name"/>
+            <input type="text" name="name" id="reasonF"/>
             </div>
             
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary">
+          <Button variant="primary" onClick={handleBudgetRequest(clubNames[index].getEmail())}>
             Set Budget
           </Button>
           <Button variant="secondary" onClick={handleClose}>
