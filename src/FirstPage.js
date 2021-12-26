@@ -43,9 +43,8 @@ function FirstPage() {
 
     const leaveEventHandler = async (eventId, studentMail) => {
       console.log("leave", studentMail, eventId)
-      let id = eventId.toString();
       setJoined(false)
-      await Manage("student").removeJoinedEvent(studentMail, "1")
+      await Manage("student").removeJoinedEvent(studentMail, eventId)
       
     }
 
@@ -240,7 +239,7 @@ function FirstPage() {
             </div>
           </div>
           { currentEventJoined ?
-          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler(studentEmail, data[activeItem].getId() )}>
+          (<Button variant="danger" size="sm" onClick={() => leaveEventHandler( data[activeItem].getId(), studentEmail )}>
             Leave Event
           </Button>)
           :
