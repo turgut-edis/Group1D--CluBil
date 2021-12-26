@@ -10,8 +10,6 @@ import Modal from "react-bootstrap/Modal";
 import { Button} from 'react-bootstrap';
 import Manage from "./managers/ManagerFacade";
 import { updatePassword } from "firebase/auth";
-//ToDo::
-//Taha
 
 function UserProfilePage() {
     const [user, loading] = useAuthState(auth);
@@ -83,7 +81,7 @@ function UserProfilePage() {
               // doc.data() will be undefined in this case
               console.log("No such document!");
             }
-
+            setAdvisingClub(data.advisingClub)
             setName(data.name);
             setRole(data.type);
             
