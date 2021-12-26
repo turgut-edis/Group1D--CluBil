@@ -236,6 +236,7 @@ function EventListClub() {
             <div>Date:</div> <div>{newEventsData[activeItem].getDateRequested()}  </div>
             </div>
           </div>
+          
           </Modal.Body>
         <Modal.Footer>
          

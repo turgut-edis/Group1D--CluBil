@@ -17,6 +17,7 @@ export default function Clubs () {
     const [noOfRows, setNoOfRows] = useState(1);
     const [users, setUsers] = useState([])
     const [activeItem, setActiveItem] = useState(0)
+    const [currentEventJoined, setJoined] = useState(false)
 
 
     const handleClose = () => {
@@ -165,9 +166,15 @@ export default function Clubs () {
           <p>Description✏️: {users[activeItem].getDescription()}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+        { currentEventJoined ?
+          (<Button variant="danger" size="sm" >
+            Leave Event
+          </Button>)
+          :
+          (<Button variant="success" size="sm" >
+          Join Event
+           </Button>)
+          }
         </Modal.Footer>
       </Modal>
               </tr>

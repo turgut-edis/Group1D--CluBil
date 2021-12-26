@@ -70,8 +70,10 @@ export default function Calendar (){
     if(eventData == null) {
       return <div>loading...</div>
     }
+
     if(newEventsData.length == 0)
     {
+      console.log(eventData, 'ED')
     eventData.forEach(element => {
           console.log(element)
           if(element.getParticipants().indexOf(user.email) > -1) {
