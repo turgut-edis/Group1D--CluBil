@@ -168,11 +168,11 @@ export default function Clubs () {
         <Modal.Footer>
         { currentEventJoined ?
           (<Button variant="danger" size="sm" >
-            Leave Event
+            Leave Club
           </Button>)
           :
           (<Button variant="success" size="sm" >
-          Join Event
+            Join Club
            </Button>)
           }
         </Modal.Footer>
